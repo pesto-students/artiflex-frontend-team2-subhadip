@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { ElevatedCard, Button } from "@cred/neopop-web/lib/components";
 
 import { Container, Col, Row } from "react-grid-system";
-import "./RegisterPage.css";
+import "./LoginPage.css";
 import PrimaryButtonComp from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import DarkButtonComp from "../../components/DarkButtonComponent/DarkButtonComponent";
@@ -18,16 +18,14 @@ const ContentWrapper = styled.div`
   padding: 30px;
 `;
 
-const RegisterPage = () => {
-  const [registerFormdata, setregisterFormData] = React.useState({
-    name: "",
+const LoginPage = () => {
+  const [LoginFormdata, setloginFormData] = React.useState({
     email: "",
-    aadhar_no: "",
     password: "",
   });
 
   function handleChange(event) {
-    setregisterFormData((prevFormData) => {
+    setloginFormData((prevFormData) => {
       return {
         ...prevFormData,
         [event.target.id]: event.target.value,
@@ -35,10 +33,10 @@ const RegisterPage = () => {
     });
   }
 
-  console.log(registerFormdata);
+  console.log(LoginFormdata);
 
   return (
-    <div className="register_page">
+    <div className="login_page">
       <div className="form_section_outer_div">
         <div className="logo"></div>
         <section className="form_section">
@@ -60,7 +58,7 @@ const RegisterPage = () => {
                   display: "flex",
                   alignItems: "center",
                   flexDirection: "column",
-                  gap: "20px",
+                  gap: "30px",
                   border: "1px solid black",
                 }}
               >
@@ -72,36 +70,13 @@ const RegisterPage = () => {
 
                 <form className="input_form_fields">
                   <InputComponent
-                    label="Name"
-                    type="text"
-                    maxLength={20}
-                    id="name"
-                    inputMode="text"
-                    // onChange={(e) => setName(e.target.value)}
-                    onChange={handleChange}
-                    name="name"
-                  />
-
-                  <InputComponent
                     label="Email"
                     type="email"
                     maxLength={30}
                     id="email"
                     inputMode="email"
-                    // onChange={(e) => setEmail(e.target.value)}
                     onChange={handleChange}
                     name="email"
-                  />
-
-                  <InputComponent
-                    label="Aadhar no"
-                    type="text"
-                    maxLength={12}
-                    id="aadhar_no"
-                    inputMode="numeric"
-                    // onChange={(e) => setAadar(e.target.value)}
-                    onChange={handleChange}
-                    name="aadharno"
                   />
 
                   <InputComponent
@@ -110,22 +85,19 @@ const RegisterPage = () => {
                     maxLength={20}
                     id="password"
                     inputMode="password"
-                    // onChange={(e) => setPassword(e.target.value)}
                     onChange={handleChange}
                     name="password"
                   />
                 </form>
 
-                <PrimaryButtonComp text="Register" size="small" />
+                <PrimaryButtonComp text="Login" size="small" />
               </ContentWrapper>
             </ElevatedCard>
           </div>
-          <div>
+          <div className="login_button">
             <Typography {...fontNameSpaces.tc12b} color="white">
-              Already have an account
-              <Button kind="link" color="white" style={{ marginInline: "8px" }}>
-                Login
-              </Button>
+              Dont have an account
+              <DarkButtonComp size="small" text="Sign in" />
             </Typography>
           </div>
         </section>
@@ -145,4 +117,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default LoginPage;

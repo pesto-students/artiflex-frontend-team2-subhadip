@@ -1,8 +1,8 @@
-.register_page {
+.login_page {
   display: flex;
 }
 
-.register_page > .image_section {
+.login_page > .image_section {
   width: 50%;
   height: 100vh;
 }
@@ -39,7 +39,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .form_section {

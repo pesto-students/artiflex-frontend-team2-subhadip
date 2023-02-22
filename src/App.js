@@ -1,7 +1,7 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import { LandingPage, SomeOtherPage, RegisterPage } from "./pages";
+import { LandingPage, SomeOtherPage, RegisterPage, LoginPage } from "./pages";
 
 import LayoutA from "./layouts/LayoutA";
 import LayoutB from "./layouts/LayoutB";
@@ -30,6 +30,20 @@ const router = createBrowserRouter([
         element: (
           <React.Suspense fallback={<div>Loading...</div>}>
             <RegisterPage />
+          </React.Suspense>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/loginpage",
+    // element: <LayoutA />,
+    children: [
+      {
+        path: "",
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <LoginPage />
           </React.Suspense>
         ),
       },

@@ -11,3 +11,5 @@ export const SomeOtherPage = React.lazy(() =>
 export const RegisterPage = React.lazy(() =>
   import("./RegisterPage/RegisterPage")
 );
+
+export const LoginPage = React.lazy(() => import("./LoginPage/LoginPage"));
