@@ -11,7 +11,6 @@ import { Container, Col, Row } from "react-grid-system";
 import "./RegisterPage.css";
 import PrimaryButtonComp from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
-import DarkButtonComp from "../../components/DarkButtonComponent/DarkButtonComponent";
 import React from "react";
 
 const ContentWrapper = styled.div`
@@ -67,9 +66,13 @@ const RegisterPage = () => {
                 <Typography {...fontNameSpaces.tc12b} color="black">
                   Welcome
                 </Typography>
-                <PrimaryButtonComp text="Login with google" size="medium" />
+                <PrimaryButtonComp
+                  text="Login with google"
+                  size="medium"
+                  color="black"
+                  borderColor="black"
+                />
                 <HorizontalDivider color={colorPalette.popBlack[100]} />
-
                 <form className="input_form_fields">
                   <InputComponent
                     label="Name"
@@ -115,8 +118,12 @@ const RegisterPage = () => {
                     name="password"
                   />
                 </form>
-
-                <PrimaryButtonComp text="Register" size="small" />
+                <PrimaryButtonComp
+                  text="Register"
+                  size="small"
+                  color="black"
+                  borderColor="black"
+                />
               </ContentWrapper>
             </ElevatedCard>
           </div>

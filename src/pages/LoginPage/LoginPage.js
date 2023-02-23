@@ -90,7 +90,12 @@ const LoginPage = () => {
                   />
                 </form>
 
-                <PrimaryButtonComp text="Login" size="small" />
+                <PrimaryButtonComp
+                  text="Login"
+                  size="small"
+                  color="black"
+                  borderColor="black"
+                />
               </ContentWrapper>
             </ElevatedCard>
           </div>

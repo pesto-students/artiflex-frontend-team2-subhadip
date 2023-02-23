@@ -2,18 +2,21 @@ import { Button } from "@cred/neopop-web/lib/components";
 import PropTypes from "prop-types";
 
 const PrimaryButtonComp = (props) => {
+  //Props Destructuring
+  const { size, color, backgroundColor, text } = props;
+
   return (
     <Button
       kind="elevated"
-      size={props.size}
+      size={size}
       colorConfig={{
         backgroundColor: "#67FF88",
         edgeColors: { right: "#111827", bottom: "#111827" },
-        color: "black",
-        borderColor: "black",
+        color: { color },
+        borderColor: { backgroundColor },
       }}
     >
-      {props.text}
+      {text}
     </Button>
   );
 };
@@ -22,4 +25,7 @@ export default PrimaryButtonComp;
 
 PrimaryButtonComp.propTypes = {
   size: PropTypes.number,
+  color: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  text: PropTypes.string,
 };
