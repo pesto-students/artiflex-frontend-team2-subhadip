@@ -13,3 +13,6 @@ export const RegisterPage = React.lazy(() =>
 );
 
 export const LoginPage = React.lazy(() => import("./LoginPage/LoginPage"));
+export const TimeLinePage = React.lazy(() =>
+  import("./TimeLinePage/TimeLinePage")
+);
