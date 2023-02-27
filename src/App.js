@@ -7,10 +7,12 @@ import {
   RegisterPage,
   LoginPage,
   TimeLinePage,
+  MainPage,
 } from "./pages";
 
 import LayoutA from "./layouts/LayoutA";
 import LayoutB from "./layouts/LayoutB";
+
 
 const router = createBrowserRouter([
   {
@@ -78,6 +80,20 @@ const router = createBrowserRouter([
         element: (
           <React.Suspense fallback={<div>Loading...</div>}>
             <SomeOtherPage />
+          </React.Suspense>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/mainpage",
+    element: <LayoutB />,
+    children: [
+      {
+        path: "",
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <MainPage />
           </React.Suspense>
         ),
       },
