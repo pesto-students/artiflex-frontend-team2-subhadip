@@ -1,7 +1,7 @@
 import React from "react";
 import { SearchBar } from "@cred/neopop-web/lib/components";
 
-const SearchInputField = () => {
+const SearchInputFieldWithoutIcon = () => {
   const handleChange = (value) => {
     console.log("Search query: ", value);
   };
@@ -11,8 +11,7 @@ const SearchInputField = () => {
 
   return (
     <SearchBar
-      iconUrl="https://cdn-icons-png.flaticon.com/512/482/482631.png"
-      placeholder="Search query here"
+      placeholder="Create Post"
       colorConfig={{backgroundColor:"#272729",border:"grey"}}
       inputColorConfig={{textColor:"white",placeholderColor:"white"}}
       handleSearchInput={handleChange}
@@ -21,4 +20,4 @@ const SearchInputField = () => {
   );
 };
 
-export default SearchInputField;
+export default SearchInputFieldWithoutIcon;
