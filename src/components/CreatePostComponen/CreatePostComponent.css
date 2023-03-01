@@ -1,0 +1,26 @@
+.add_post_outer_div {
+    border: solid 0.5px white;
+    margin-top: 30px;
+}
+
+.user {
+    text-align: center
+}
+
+.user,
+.add_image,
+.add_video {
+    margin-block: 20px;
+}
+
+
+
+.add_post {
+    margin-block: 15px;
+}
+
+.user:hover,
+.add_image:hover,
+.add_video:hover {
+    background-color: #272729;
+}

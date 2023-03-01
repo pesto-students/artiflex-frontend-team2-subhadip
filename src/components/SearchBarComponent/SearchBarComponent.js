@@ -1,6 +1,5 @@
 import React from "react";
 import { SearchBar } from "@cred/neopop-web/lib/components";
-import { colorGuide } from "@cred/neopop-web/lib/primitives";
 
 const SearchInputField = () => {
   const handleChange = (value) => {
@@ -13,9 +12,9 @@ const SearchInputField = () => {
   return (
     <SearchBar
       iconUrl="https://cdn-icons-png.flaticon.com/512/482/482631.png"
-      placeholder="search query here"
-      colorConfig={colorGuide.lightComponents.searchBar}
-      inputColorConfig={colorGuide.lightComponents.inputFields}
+      placeholder="Search query here"
+      colorConfig={{backgroundColor:"#272729",border:"grey"}}
+      inputColorConfig={{textColor:"white",placeholderColor:"white"}}
       handleSearchInput={handleChange}
       onSubmit={handleSubmit}
     />
