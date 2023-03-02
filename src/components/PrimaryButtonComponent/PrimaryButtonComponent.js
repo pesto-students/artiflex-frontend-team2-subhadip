@@ -25,7 +25,7 @@ const PrimaryButtonComponent = (props) => {
 
 export default PrimaryButtonComponent;
 
-PrimaryButtonComponent.propTypes = {
+PrimaryButtonComp.propTypes = {
   size: PropTypes.string,
   color: PropTypes.string,
   backgroundColor: PropTypes.string,

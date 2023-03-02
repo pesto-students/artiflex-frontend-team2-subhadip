@@ -23,26 +23,26 @@
 }
 
 .chat:hover {
-  background-color: black;
+  background-color: #272729;
   border-radius: 30px;
 }
 
 .profile:hover {
-  background-color: black;
+  background-color: #272729;
   border-radius: 30px;
 }
 
 .notification:hover {
-  background-color: black;
+  background-color: #272729;
   border-radius: 30px;
 }
 
 .wallet:hover {
-  background-color: black;
+  background-color: #272729;
   border-radius: 30px;
 }
 
 .kart:hover {
-  background-color: black;
+  background-color: #272729;
   border-radius: 30px;
 }
