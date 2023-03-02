@@ -11,7 +11,7 @@ const PrimaryButtonLight = (props) => {
       size={size}
       colorConfig={{
         backgroundColor: "#67FF88",
-        edgeColors: { right: "#111827", bottom: "#111827" },
+        edgeColors: { right: "white", bottom: "white" },
         color: { color },
         borderColor: { backgroundColor },
       }}

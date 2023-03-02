@@ -14,6 +14,7 @@ import { MdSecurity, MdPayment, MdOutlineVerified } from "react-icons/md";
 
 import React from "react";
 import "./MainPage.css";
+import SecondaryButtonLight from "../../components/SecondryButtonLight/SecondryButtonLight";
 
 export const MainPage = () => {
   return (
@@ -81,8 +82,8 @@ export const MainPage = () => {
               </Typography>
             </div>
             <div className="center_button">
-              <SecondaryButton text="Connect Wallet" size="medium" />
-              <SecondaryButton text="Post Your Art" size="medium" />
+              <SecondaryButtonLight text="Connect Wallet" size="medium" />
+              <SecondaryButtonLight text="Post Your Art" size="medium" />
             </div>
           </div>
 
