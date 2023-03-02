@@ -12,8 +12,8 @@ const SearchInputFieldWithoutIcon = () => {
   return (
     <SearchBar
       placeholder="Create Post"
-      colorConfig={{backgroundColor:"#272729",border:"grey"}}
-      inputColorConfig={{textColor:"white",placeholderColor:"white"}}
+      colorConfig={{ backgroundColor: "#272729", border: "grey" }}
+      inputColorConfig={{ textColor: "white", placeholderColor: "white" }}
       handleSearchInput={handleChange}
       onSubmit={handleSubmit}
     />

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const PrimaryButtonComp = (props) => {
   //Props Destructuring
-  const { size, color, backgroundColor, text } = props;
+  const { size, color, text } = props;
 
   return (
     <Button
@@ -13,7 +13,7 @@ const PrimaryButtonComp = (props) => {
         backgroundColor: "#67FF88",
         edgeColors: { right: "#111827", bottom: "#111827" },
         color: { color },
-        borderColor: { backgroundColor },
+        borderColor: "black",
       }}
     >
       {text}
@@ -24,7 +24,7 @@ const PrimaryButtonComp = (props) => {
 export default PrimaryButtonComp;
 
 PrimaryButtonComp.propTypes = {
-  size: PropTypes.number,
+  size: PropTypes.string,
   color: PropTypes.string,
   backgroundColor: PropTypes.string,
   text: PropTypes.string,
