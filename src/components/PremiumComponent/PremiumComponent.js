@@ -34,7 +34,7 @@ const Card = () => {
         right: "white",
       }}
       style={{
-        width: "426px",
+        // width: '426px',
         height: "163px",
       }}
     >
@@ -42,6 +42,7 @@ const Card = () => {
         <Row>
           <Col>
             <Typography
+              className="title"
               {...fontNameSpaces.tc12b}
               color={mainColors.white}
               fontSize={25}
@@ -51,14 +52,19 @@ const Card = () => {
           </Col>
           <Col className="diamond"></Col>
         </Row>
-        <Row>
-          <PrimaryButtonComp
-            size="medium"
-            text="Try Now"
-            color="black"
-            backgroundColor="white"
-          />
-        </Row>
+        <Button
+          variant="secondary"
+          kind="elevated"
+          fullWidth="true"
+          colorConfig={{
+            backgroundColor: "#67FF88",
+            edgeColors: { right: "white", bottom: "white" },
+            borderColor: "black",
+            color: "black",
+          }}
+        >
+          Try Now
+        </Button>
       </ContentWrapper>
     </ElevatedCard>
   );
