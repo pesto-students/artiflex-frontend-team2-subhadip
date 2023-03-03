@@ -3,9 +3,10 @@ import "./TimeLinePage.css";
 import { Container, Row, Col } from "react-grid-system";
 
 import TopNavComponent from "../../components/TopNavComponent/TopNavComponent";
-import CreatePostComponent from "../../components/CreatePostComponen/CreatePostComponent";
+import CreatePostComponent from "../../components/CreatePostComponent/CreatePostComponent";
 import FilterPostComponent from "../../components/FilterPostComponent/FilterPostComponent";
-import Card from "../../components/PremiumComponent/PremiumComponent";
+import PremiumCardComponent from "../../components/PremiumComponent/PremiumComponent";
+import Card from "../../components/PostsListComponent/PostsListComponent";
 
 function TimeLinePage() {
   return (
@@ -14,15 +15,25 @@ function TimeLinePage() {
       <div className="time_line_main_div">
         <Container>
           <Row>
-            <Col sm={12} xs={12} md={8}>
+            <Col sm={12} xs={12} md={6}>
               <CreatePostComponent />
               <FilterPostComponent />
             </Col>
 
             <Col sm={1} md={1}></Col>
             <Col sm={12} md={3} className="premium">
+              <PremiumCardComponent />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={12} xs={12} md={6} className="post-list-container">
               <Card />
             </Col>
+            <Col sm={1} md={1}></Col>
+            <Col sm={12} md={3} className="premium">
+
+            </Col>
+
           </Row>
         </Container>
       </div>

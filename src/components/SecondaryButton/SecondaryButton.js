@@ -10,7 +10,7 @@ const SecondaryButtonComp = (props) => {
       size={size}
       colorConfig={{
         backgroundColor: "#DBBEF7",
-        edgeColors: { right: "white", bottom: "white" },
+        edgeColors: { right: "black", bottom: "black" },
         color: { color },
         borderColor: "black",
       }}
