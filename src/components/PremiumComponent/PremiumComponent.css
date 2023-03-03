@@ -1,4 +1,9 @@
-.diamond{
-    background: url("../../assets/Vector.png") no-repeat;
-    height: 75px;
+.diamond {
+  background: url("../../assets/Vector.png") no-repeat;
+  height: 75px;
+  margin-top: 9px;
+}
+
+.title {
+  margin-top: 10px;
 }

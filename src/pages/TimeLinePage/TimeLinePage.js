@@ -17,12 +17,11 @@ function TimeLinePage() {
             <Col sm={12} xs={12} md={8}>
               <CreatePostComponent />
               <FilterPostComponent />
-
             </Col>
 
-            <Col sm={1}></Col>
-            <Col sm={3}>
-              <Card/>
+            <Col sm={1} md={1}></Col>
+            <Col sm={12} md={3} className="premium">
+              <Card />
             </Col>
           </Row>
         </Container>
