@@ -6,7 +6,8 @@ import TopNavComponent from "../../components/TopNavComponent/TopNavComponent";
 import CreatePostComponent from "../../components/CreatePostComponent/CreatePostComponent";
 import FilterPostComponent from "../../components/FilterPostComponent/FilterPostComponent";
 import PremiumCardComponent from "../../components/PremiumComponent/PremiumComponent";
-import Card from "../../components/PostsListComponent/PostsListComponent";
+import PostsListComponent from "../../components/PostsListComponent/PostsListComponent";
+import RecentPostCardComponent from "../../components/RecentPostComponent/RecentPostComponent";
 
 function TimeLinePage() {
   return (
@@ -27,11 +28,13 @@ function TimeLinePage() {
           </Row>
           <Row>
             <Col sm={12} xs={12} md={6} className="post-list-container">
-              <Card />
+              <PostsListComponent />
             </Col>
             <Col sm={1} md={1}></Col>
             <Col sm={12} md={3} className="premium">
-
+              <div style={{marginTop:"20px"}}>
+                <RecentPostCardComponent />
+              </div>
             </Col>
 
           </Row>

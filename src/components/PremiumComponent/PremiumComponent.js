@@ -2,6 +2,8 @@ import React from "react";
 import { Row, Col } from "react-grid-system";
 import "./PremiumComponent.css";
 // import PrimaryButtonComp from "../PrimaryButtonComponent/PrimaryButtonComponent";
+import { colorPalette } from '@cred/neopop-web/lib/primitives';
+
 
 import {
     ElevatedCard,
@@ -27,8 +29,8 @@ const PremiumCardComponent = () => {
             borderColor="white"
             backgroundColor="#1a1a1b"
             edgeColors={{
-                bottom: "#FFFAE5",
-                right: "#FFFAE5",
+                right: colorPalette.success[200],
+                bottom: colorPalette.success[200],
             }}
             style={{
                 // width: '426px',

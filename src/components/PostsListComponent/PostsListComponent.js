@@ -30,7 +30,7 @@ const ContentWrapper = styled.div`
     padding: 20px;
 `;
 
-const Card = () => {
+const PostsListComponent = () => {
     return (
         <>
             <ElevatedCard
@@ -208,4 +208,4 @@ const Card = () => {
     );
 };
 
-export default Card;
+export default PostsListComponent;
