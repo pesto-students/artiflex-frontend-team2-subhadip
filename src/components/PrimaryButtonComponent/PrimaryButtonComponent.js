@@ -1,9 +1,10 @@
 import { Button } from "@cred/neopop-web/lib/components";
 import PropTypes from "prop-types";
 
-const PrimaryButtonComp = (props) => {
+const PrimaryButtonComponent = (props) => {
   //Props Destructuring
-  const { size, color, backgroundColor, text } = props;
+  console.log(props);
+  const { size, color, text, borderColor } = props;
 
   return (
     <Button
@@ -13,19 +14,21 @@ const PrimaryButtonComp = (props) => {
         backgroundColor: "#67FF88",
         edgeColors: { right: "#111827", bottom: "#111827" },
         color: { color },
-        borderColor: { backgroundColor },
+        borderColor: "black",
       }}
+      onClick={props.onClick}
     >
       {text}
     </Button>
   );
 };
 
-export default PrimaryButtonComp;
+export default PrimaryButtonComponent;
 
-PrimaryButtonComp.propTypes = {
-  size: PropTypes.number,
+PrimaryButtonComponent.propTypes = {
+  size: PropTypes.string,
   color: PropTypes.string,
   backgroundColor: PropTypes.string,
   text: PropTypes.string,
+  borderColor: PropTypes.string,
 };

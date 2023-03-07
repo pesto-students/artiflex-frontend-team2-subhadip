@@ -9,10 +9,11 @@ import { ElevatedCard, Button } from "@cred/neopop-web/lib/components";
 
 import { Container, Col, Row } from "react-grid-system";
 import "./LoginPage.css";
-import PrimaryButtonComp from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
+import PrimaryButtonComponent from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import DarkButtonComp from "../../components/DarkButtonComponent/DarkButtonComponent";
 import React from "react";
+import axios from "axios";
 
 const ContentWrapper = styled.div`
   padding: 30px;
@@ -32,6 +33,17 @@ const LoginPage = () => {
       };
     });
   }
+
+  const login = () => {
+    axios
+      .post("http://localhost:8080/auth/signin", {
+        email: LoginFormdata.email,
+        password: LoginFormdata.password,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
 
   console.log(LoginFormdata);
 
@@ -65,7 +77,10 @@ const LoginPage = () => {
                 <Typography {...fontNameSpaces.tc12b} color="black">
                   Welcome
                 </Typography>
-                <PrimaryButtonComp text="Login with google" size="medium" />
+                <PrimaryButtonComponent
+                  text="Login with google"
+                  size="medium"
+                />
                 <HorizontalDivider color={colorPalette.popBlack[100]} />
 
                 <form className="input_form_fields">
@@ -90,11 +105,12 @@ const LoginPage = () => {
                   />
                 </form>
 
-                <PrimaryButtonComp
+                <PrimaryButtonComponent
                   text="Login"
                   size="small"
                   color="black"
                   borderColor="black"
+                  onClick={login}
                 />
               </ContentWrapper>
             </ElevatedCard>
