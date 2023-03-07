@@ -19,3 +19,7 @@ export const LoginPage = React.lazy(() => import("./LoginPage/LoginPage"));
 export const TimeLinePage = React.lazy(() =>
   import("./TimeLinePage/TimeLinePage")
 );
+
+export const AddPostFormPage = React.lazy(() =>
+  import("./AddPostFormPage/AddPostFormPage")
+);
