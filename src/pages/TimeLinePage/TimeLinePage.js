@@ -36,7 +36,6 @@ function TimeLinePage() {
                 <RecentPostCardComponent />
               </div>
             </Col>
-
           </Row>
         </Container>
       </div>
