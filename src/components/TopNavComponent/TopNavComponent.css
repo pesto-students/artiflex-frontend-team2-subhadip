@@ -1,0 +1,48 @@
+.logo {
+  width: 100%;
+  height: 51px;
+  background: url("../../assets/artiflex.png") no-repeat;
+}
+
+.topnav_outer_div {
+  height: 65px;
+  border: solid 0.5px white;
+  background-color: #1a1a1b;
+}
+
+.search_bar {
+  margin-block: 13px;
+}
+
+.chat,
+.profile,
+.notification,
+.wallet,
+.kart {
+  margin: auto;
+}
+
+.chat:hover {
+  background-color: #272729;
+  border-radius: 30px;
+}
+
+.profile:hover {
+  background-color: #272729;
+  border-radius: 30px;
+}
+
+.notification:hover {
+  background-color: #272729;
+  border-radius: 30px;
+}
+
+.wallet:hover {
+  background-color: #272729;
+  border-radius: 30px;
+}
+
+.kart:hover {
+  background-color: #272729;
+  border-radius: 30px;
+}

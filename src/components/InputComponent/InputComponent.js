@@ -1,4 +1,4 @@
-import { Typography, InputField } from "@cred/neopop-web/lib/components";
+import { InputField } from "@cred/neopop-web/lib/components";
 import PropTypes from "prop-types";
 
 const InputComponent = (props) => {
