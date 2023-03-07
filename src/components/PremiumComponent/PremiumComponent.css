@@ -2,9 +2,10 @@
   background: url("../../assets/Vector.png") no-repeat;
   height: 75px;
   margin-top: 9px;
+  margin-left: 5% !important;
 }
 
 .title {
   margin-top: 10px;
-  margin-left: 70px;
+  margin-left: 30px;
 }
