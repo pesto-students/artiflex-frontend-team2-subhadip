@@ -14,12 +14,16 @@ import InputComponent from "../../components/InputComponent/InputComponent";
 import DarkButtonComp from "../../components/DarkButtonComponent/DarkButtonComponent";
 import React from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const ContentWrapper = styled.div`
   padding: 30px;
 `;
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const [LoginFormdata, setloginFormData] = React.useState({
     email: "",
     password: "",
@@ -42,6 +46,7 @@ const LoginPage = () => {
       })
       .then((res) => {
         console.log(res);
+        navigate('/timelinepage', { replace: true })
       });
   };
 
