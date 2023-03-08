@@ -10,6 +10,7 @@ const DarkButtonComp = (props) => {
       size={props.size}
       colorConfig={{ borderColor: "white", backgroundColor: "black" }}
       style={{ marginInline: "5px" }}
+      onClick={props.onClick}
     >
       {props.text}
     </Button>

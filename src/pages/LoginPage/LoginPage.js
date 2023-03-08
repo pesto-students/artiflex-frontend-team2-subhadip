@@ -11,7 +11,7 @@ import { Container, Col, Row } from "react-grid-system";
 import "./LoginPage.css";
 import PrimaryButtonComponent from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
-import DarkButtonComp from "../../components/DarkButtonComponent/DarkButtonComponent";
+import DarkButtonComponent from "../../components/DarkButtonComponent/DarkButtonComponent";
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -49,6 +49,10 @@ const LoginPage = () => {
         navigate('/timelinepage', { replace: true })
       });
   };
+
+  const register = () =>{
+    navigate('/registerpage', { replace: true })
+  }
 
   console.log(LoginFormdata);
 
@@ -123,7 +127,7 @@ const LoginPage = () => {
           <div className="login_button">
             <Typography {...fontNameSpaces.tc12b} color="white">
               Dont have an account
-              <DarkButtonComp size="small" text="Sign in" />
+              <DarkButtonComponent size="small" text="Sign in" onClick={register}/>
             </Typography>
           </div>
         </section>
