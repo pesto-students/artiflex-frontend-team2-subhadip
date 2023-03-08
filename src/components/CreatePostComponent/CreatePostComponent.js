@@ -15,7 +15,7 @@ const CreatePostComponent = () => {
         />
       </Col>
       <Col xs={7.5} md={8.5} className="add_post">
-        <SearchInputFieldWithoutIcon />
+        <SearchInputFieldWithoutIcon title="Create Post" />
       </Col>
       <Col xs={1.5} md={1} className="add_image">
         <RiImageAddLine
