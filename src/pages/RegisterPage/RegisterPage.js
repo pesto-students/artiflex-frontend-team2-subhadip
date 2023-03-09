@@ -12,12 +12,16 @@ import "./RegisterPage.css";
 import PrimaryButtonComp from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 const ContentWrapper = styled.div`
   padding: 30px;
 `;
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
+
   const [registerFormdata, setregisterFormData] = React.useState({
     name: "",
     email: "",
@@ -130,7 +134,7 @@ const RegisterPage = () => {
           <div>
             <Typography {...fontNameSpaces.tc12b} color="white">
               Already have an account
-              <Button kind="link" color="white" style={{ marginInline: "8px" }}>
+              <Button kind="link" color="white" onClick={()=> navigate('/loginpage', { replace: true })} style={{ marginInline: "8px" }}>
                 Login
               </Button>
             </Typography>
