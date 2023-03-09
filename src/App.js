@@ -99,6 +99,20 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/profilePage",
+    element: <LayoutB />,
+    children: [
+      {
+        path: "",
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <profilePage />
+          </React.Suspense>
+        ),
+      },
+    ],
+  },
 ]);
 
 function App() {

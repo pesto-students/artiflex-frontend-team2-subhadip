@@ -15,7 +15,11 @@ export const MainPage = React.lazy(() =>
   import("./MainPage/MainPage")
 );
 
+export const profilePage = React.lazy(() => import("./ProfilePage/profilePage"));
+
 export const LoginPage = React.lazy(() => import("./LoginPage/LoginPage"));
 export const TimeLinePage = React.lazy(() =>
   import("./TimeLinePage/TimeLinePage")
 );
+
+
