@@ -1,0 +1,12 @@
+.filter_post_outer_div {
+    border: solid 0.5px white;
+    margin-top: 20px;
+}
+
+
+.all_button,
+.art_button,
+.ads_button,
+.others_button {
+    margin-top: 8px;
+}
