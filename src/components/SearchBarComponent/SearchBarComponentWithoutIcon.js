@@ -1,7 +1,7 @@
 import React from "react";
 import { SearchBar } from "@cred/neopop-web/lib/components";
 
-const SearchInputFieldWithoutIcon = () => {
+const SearchInputFieldWithoutIcon = (props) => {
   const handleChange = (value) => {
     console.log("Search query: ", value);
   };
@@ -11,7 +11,8 @@ const SearchInputFieldWithoutIcon = () => {
 
   return (
     <SearchBar
-      placeholder="Create Post"
+      placeholder={props.title}
+      // placeholder="Create Post"
       colorConfig={{ backgroundColor: "#272729", border: "grey" }}
       inputColorConfig={{ textColor: "white", placeholderColor: "white" }}
       handleSearchInput={handleChange}
