@@ -13,8 +13,8 @@ const SearchInputField = () => {
     <SearchBar
       iconUrl="https://cdn-icons-png.flaticon.com/512/482/482631.png"
       placeholder="Search query here"
-      colorConfig={{backgroundColor:"#272729",border:"grey"}}
-      inputColorConfig={{textColor:"white",placeholderColor:"white"}}
+      colorConfig={{ backgroundColor: "#272729", border: "grey" }}
+      inputColorConfig={{ textColor: "white", placeholderColor: "white" }}
       handleSearchInput={handleChange}
       onSubmit={handleSubmit}
     />

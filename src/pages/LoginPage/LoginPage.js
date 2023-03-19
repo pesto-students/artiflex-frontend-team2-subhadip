@@ -15,7 +15,8 @@ import DarkButtonComponent from "../../components/DarkButtonComponent/DarkButton
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer } from "@cred/neopop-web/lib/components";
+import { showToast } from "@cred/neopop-web/lib/components";
 
 const ContentWrapper = styled.div`
   padding: 30px;
@@ -45,14 +46,26 @@ const LoginPage = () => {
         password: LoginFormdata.password,
       })
       .then((res) => {
-        console.log(res);
-        navigate('/timelinepage', { replace: true })
+        showToast("Sample toast message", {
+          type: "success",
+          autoCloseTime: "5000",
+        });
+        navigate("/timelinepage", { replace: true });
+      })
+      .catch((error) => {
+        showToast(
+          "The login credentials provided are invalid. Please try again with the correct email and password combination.",
+          {
+            type: "error  ",
+            autoCloseTime: "5000",
+          }
+        );
       });
   };
 
-  const register = () =>{
-    navigate('/registerpage', { replace: true })
-  }
+  const register = () => {
+    navigate("/registerpage", { replace: true });
+  };
 
   console.log(LoginFormdata);
 
@@ -62,6 +75,7 @@ const LoginPage = () => {
         <div className="logo"></div>
         <section className="form_section">
           <div>
+            <ToastContainer />
             <ElevatedCard
               className="form"
               backgroundColor="#fff0e5"
@@ -127,7 +141,11 @@ const LoginPage = () => {
           <div className="login_button">
             <Typography {...fontNameSpaces.tc12b} color="white">
               Dont have an account
-              <DarkButtonComponent size="small" text="Sign in" onClick={register}/>
+              <DarkButtonComponent
+                size="small"
+                text="Sign in"
+                onClick={register}
+              />
             </Typography>
           </div>
         </section>
