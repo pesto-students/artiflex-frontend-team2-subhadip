@@ -7,13 +7,13 @@ import {
 import styled from "styled-components";
 import { ElevatedCard, Button } from "@cred/neopop-web/lib/components";
 
-import { Container, Col, Row } from "react-grid-system";
+// import { Container, Col, Row } from "react-grid-system";
 import "./RegisterPage.css";
-import PrimaryButtonComp from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
+import PrimaryButtonComponent from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 
 const ContentWrapper = styled.div`
   padding: 30px;
@@ -23,9 +23,10 @@ const RegisterPage = () => {
   const navigate = useNavigate();
 
   const [registerFormdata, setregisterFormData] = React.useState({
-    name: "",
+    firstname: "",
+    lastname: "",
     email: "",
-    aadhar_no: "",
+    phoneno: "",
     password: "",
   });
 
@@ -39,6 +40,24 @@ const RegisterPage = () => {
   }
 
   console.log(registerFormdata);
+
+  const Register = () => {
+    axios
+      .post("http://localhost:8080/auth/signup", {
+        first_name: registerFormdata.firstname,
+        last_name: registerFormdata.lastname,
+        email: registerFormdata.email,
+        mobile_no: registerFormdata.phoneno,
+        password: registerFormdata.password,
+      })
+      .then((res) => {
+        console.log(res);
+        navigate("/loginpage", { replace: true });
+      })
+      .catch((error) => {
+        // console.error(error);
+      });
+  };
 
   return (
     <div className="register_page">
@@ -70,23 +89,34 @@ const RegisterPage = () => {
                 <Typography {...fontNameSpaces.tc12b} color="black">
                   Welcome
                 </Typography>
-                <PrimaryButtonComp
+                {/* <PrimaryButtonComp
                   text="Login with google"
                   size="medium"
                   color="black"
                   borderColor="black"
                 />
-                <HorizontalDivider color={colorPalette.popBlack[100]} />
+                <HorizontalDivider color={colorPalette.popBlack[100]} /> */}
                 <form className="input_form_fields">
                   <InputComponent
-                    label="Name"
+                    label="First Name"
                     type="text"
                     maxLength={20}
-                    id="name"
+                    id="firstname"
                     inputMode="text"
                     // onChange={(e) => setName(e.target.value)}
                     onChange={handleChange}
-                    name="name"
+                    name="firstname"
+                  />
+
+                  <InputComponent
+                    label="Last Name"
+                    type="text"
+                    maxLength={20}
+                    id="lastname"
+                    inputMode="text"
+                    // onChange={(e) => setName(e.target.value)}
+                    onChange={handleChange}
+                    name="lastname"
                   />
 
                   <InputComponent
@@ -100,15 +130,26 @@ const RegisterPage = () => {
                     name="email"
                   />
 
-                  <InputComponent
+                  {/* <InputComponent
                     label="Aadhar no"
                     type="text"
                     maxLength={12}
-                    id="aadhar_no"
+                    id="aadharno"
                     inputMode="numeric"
                     // onChange={(e) => setAadar(e.target.value)}
                     onChange={handleChange}
                     name="aadharno"
+                  /> */}
+
+                  <InputComponent
+                    label="Phone number"
+                    type="text"
+                    maxLength={10}
+                    id="phoneno"
+                    inputMode="numeric"
+                    // onChange={(e) => setAadar(e.target.value)}
+                    onChange={handleChange}
+                    name="phoneno"
                   />
 
                   <InputComponent
@@ -122,11 +163,12 @@ const RegisterPage = () => {
                     name="password"
                   />
                 </form>
-                <PrimaryButtonComp
+                <PrimaryButtonComponent
                   text="Register"
-                  size="small"
+                  size="medium"
                   color="black"
                   borderColor="black"
+                  onClick={Register}
                 />
               </ContentWrapper>
             </ElevatedCard>
@@ -134,7 +176,12 @@ const RegisterPage = () => {
           <div>
             <Typography {...fontNameSpaces.tc12b} color="white">
               Already have an account
-              <Button kind="link" color="white" onClick={()=> navigate('/loginpage', { replace: true })} style={{ marginInline: "8px" }}>
+              <Button
+                kind="link"
+                color="white"
+                onClick={() => navigate("/loginpage", { replace: true })}
+                style={{ marginInline: "8px" }}
+              >
                 Login
               </Button>
             </Typography>

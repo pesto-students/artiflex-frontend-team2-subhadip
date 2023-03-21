@@ -3,7 +3,7 @@ import { RiUserLine, RiImageAddLine, RiVideoAddLine } from "react-icons/ri";
 import SearchInputFieldWithoutIcon from "../SearchBarComponent/SearchBarComponentWithoutIcon";
 import "./CreatePostComponent.css";
 
-const CreatePostComponent = () => {
+const CreatePostComponent = (props) => {
   return (
     <Row
       className="add_post_outer_div"

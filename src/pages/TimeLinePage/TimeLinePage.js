@@ -28,8 +28,6 @@ function TimeLinePage() {
             </Col>
           </Row>
 
-
-
           <Row>
             <Col sm={1} md={2}></Col>
 

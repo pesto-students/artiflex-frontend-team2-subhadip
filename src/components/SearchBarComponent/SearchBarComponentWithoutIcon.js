@@ -1,10 +1,14 @@
 import React from "react";
 import { SearchBar } from "@cred/neopop-web/lib/components";
+import { useNavigate } from "react-router-dom";
 
 const SearchInputFieldWithoutIcon = (props) => {
-  const handleChange = (value) => {
-    console.log("Search query: ", value);
+  const navigate = useNavigate();
+
+  const onclick = () => {
+    navigate("/addpostformpage", { replace: true });
   };
+
   const handleSubmit = () => {
     console.log("Search query submitted");
   };
@@ -15,7 +19,7 @@ const SearchInputFieldWithoutIcon = (props) => {
       // placeholder="Create Post"
       colorConfig={{ backgroundColor: "#272729", border: "grey" }}
       inputColorConfig={{ textColor: "white", placeholderColor: "white" }}
-      handleSearchInput={handleChange}
+      handleSearchInput={onclick}
       onSubmit={handleSubmit}
     />
   );
