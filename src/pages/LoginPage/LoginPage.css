@@ -20,9 +20,6 @@
 .form_section_outer_div {
   display: flex;
   flex-direction: column;
-}
-
-.form_section_outer_div {
   width: 50%;
 }
 

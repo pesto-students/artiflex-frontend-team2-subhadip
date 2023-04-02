@@ -4,6 +4,10 @@ import { RiHeartAddLine, RiDiscussLine, RiShareLine } from "react-icons/ri";
 import PrimaryButtonComponent from ".././PrimaryButtonComponent/PrimaryButtonComponent";
 import SecondaryButtonComp from "../SecondaryButton/SecondaryButton";
 
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+
+import { storage } from "../../firebase";
+
 import {
   ElevatedCard,
   Column,
@@ -29,6 +33,25 @@ const ContentWrapper = styled.div`
 `;
 
 const PostsListComponent = () => {
+  const [imageList, setImageList] = React.useState([]);
+
+  const imageListRef = ref(storage, "images/");
+
+  const image_url_backend = //put the url coming fromthe backedn
+    React.useEffect(() => {
+      listAll(imageListRef).then((response) => {
+        //remove this line
+        response.items.forEach((item) => {
+          getDownloadURL(item).then((url) => {
+            //replace item with image_url_backend
+            setImageList((prev) => [...prev, url]);
+          });
+        });
+      });
+    }, []);
+
+  console.log(imageList[0]);
+
   const listObject = [
     {
       likes: 22,
@@ -52,6 +75,13 @@ const PostsListComponent = () => {
       comments: 212,
       content: "hello my name is elon musk",
       type: "text",
+    },
+    {
+      likes: 1,
+      title: "kendrik",
+      comments: 212,
+      content: imageList[0],
+      type: "image",
     },
   ];
   return (
@@ -117,13 +147,13 @@ const PostsListComponent = () => {
                 </Row>
                 <HorizontalSpacer n={5} />
                 <div style={{ maxWidth: "100%", margin: "auto" }}>
-                  {item.type == "image" ? (
+                  {item.type === "image" ? (
                     <img
                       src={item.content}
                       className="image-style"
                       alt="postmedia"
                     />
-                  ) : item.type == "text" ? (
+                  ) : item.type === "text" ? (
                     <Typography
                       {...fontNameSpaces.tc12b}
                       color={mainColors.black}

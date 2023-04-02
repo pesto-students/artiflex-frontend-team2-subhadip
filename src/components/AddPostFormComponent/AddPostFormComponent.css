@@ -1,18 +1,40 @@
 .add_post_form_outer_div {
-    border: solid 0.5px white;
-    margin-top: 20px;
+  border: solid 0.5px white;
+  margin-top: 20px;
+  background-color: #1a1a1b;
 }
 
-.title-field{
-    margin-block: 5px;
+.title-field {
+  margin-block: 5px;
 }
 
-#description{
-    margin-block:10px;
-    width: 99%;
-    background-color: #272729;
+#description {
+  margin-block: 10px;
+  width: 99%;
+  /* background-color: #272729; */
 }
 
-#description-title{
-    color: gray;
+#description-title {
+  color: gray;
+}
+
+.title {
+  margin-left: 15px;
+}
+
+.sections {
+  display: flex;
+  flex-direction: row;
+  gap: 20%;
+  color: white;
+  margin-block: 10px;
+}
+
+.form-footer {
+  margin-block: 15px;
+  text-align: end;
+}
+
+.choosefile {
+  margin-block: 30px;
 }
