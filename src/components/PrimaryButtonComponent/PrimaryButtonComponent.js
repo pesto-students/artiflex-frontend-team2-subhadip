@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 const PrimaryButtonComponent = (props) => {
   //Props Destructuring
-  console.log(props);
   const { size, color, text, borderColor } = props;
 
   return (

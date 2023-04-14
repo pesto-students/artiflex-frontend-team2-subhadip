@@ -1,5 +1,7 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 import {
   LandingPage,
@@ -13,7 +15,6 @@ import {
 
 import LayoutA from "./layouts/LayoutA";
 import LayoutB from "./layouts/LayoutB";
-
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/registerpage",
+    path: "/register",
     // element: <LayoutA />,
     children: [
       {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/loginpage",
+    path: "/login",
     // element: <LayoutA />,
     children: [
       {
@@ -59,7 +60,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/timelinepage",
+    path: "/timeline",
     // element: <LayoutA />,
     children: [
       {
@@ -117,7 +118,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;

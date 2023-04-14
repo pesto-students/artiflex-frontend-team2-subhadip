@@ -6,7 +6,7 @@ import { colorPalette } from "@cred/neopop-web/lib/primitives";
 import { HorizontalDivider } from "@cred/neopop-web/lib/components";
 // import SearchInputFieldWithoutIcon from "../SearchBarComponent/SearchBarComponentWithoutIcon";
 import InputComponent from "../InputComponent/InputComponent";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import { Typography } from "@cred/neopop-web/lib/components";
 import PrimaryButtonComponent from "../PrimaryButtonComponent/PrimaryButtonComponent";
@@ -17,9 +17,13 @@ import axios from "axios";
 import { ToastContainer } from "@cred/neopop-web/lib/components";
 import { showToast } from "@cred/neopop-web/lib/components";
 import { useNavigate } from "react-router-dom";
+import { concatenate } from "workbox-streams";
+import { useDispatch } from "react-redux";
+import { createPost, createPostForImage } from "../../redux/post/postSlice";
 
 const AddPostFormComponent = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [currentSection, setCurrentSection] = React.useState("post");
 
@@ -56,17 +60,19 @@ const AddPostFormComponent = () => {
     }
     const file_name = `images/${imageUpload.name + v4()}`;
 
+    const token = file_name.split(".").pop();
+
     const imageRef = ref(storage, file_name);
 
     SetPostFormdataImage((prevFormData) => {
       return {
         ...prevFormData,
-        url: file_name,
+        post_url: token,
       };
     });
 
     uploadBytes(imageRef, imageUpload).then(() => {
-      alert("Image Uploaded");
+      // alert("Image Uploaded");
     });
   };
 
@@ -75,42 +81,65 @@ const AddPostFormComponent = () => {
     setCurrentSection(section);
   }
 
-  //api call function
-  async function createPost(type) {
-    try {
-      if (type === "textpost") {
-        await axios.post("http://localhost:8080/auth/createpost", {
-          title: PostFormData.email,
-          description: PostFormData.password,
-          post_url: "",
+  const userPost = useCallback(
+    async (payload = { title: "", description: "", post_type: "" }) =>
+      dispatch(createPost(payload)).unwrap(),
+    []
+  );
+
+  const userPostImage = useCallback(
+    async (payload = { title: "", post_url: "", post_type: "" }) =>
+      dispatch(createPostForImage(payload)).unwrap(),
+    []
+  );
+
+  //api call to the backend
+  const handleCreatePost = async (type) => {
+    if (type == "post") {
+      try {
+        const payload = {
+          title: PostFormData.title,
+          description: PostFormData.description,
           post_type: type,
-          tags: "",
-        });
-        showToast("Sample toast message", {
+        };
+        const res = await userPost(payload);
+        showToast("Post added Successfully", {
           type: "success",
-          autoCloseTime: "5000",
+          autoCloseTime: 2000,
         });
-        navigate("/timelinepage", { replace: true });
-      } else {
-        await axios.post("http://localhost:8080/auth/createpost", {
-          title: PostFormData.imagetitle,
-          post_url: PostFormData.url,
-          post_type: type,
+        setTimeout(() => {
+          navigate("/timeline", { replace: true });
+        }, 2000); // delay navigation by 2 seconds (same as autoCloseTime)
+      } catch (error) {
+        showToast("There was an error uploading the post", {
+          type: "error  ",
+          autoCloseTime: 5000,
         });
-        showToast("Sample toast message", {
-          type: "success",
-          autoCloseTime: "5000",
-        });
-        navigate("/timelinepage", { replace: true });
       }
-    } catch (error) {
-      console.log(error);
-      showToast("There was an error in posting.", {
-        type: "error",
-        autoCloseTime: "5000",
-      });
+    } else {
+      // uploadImage();
+      try {
+        const payload = {
+          title: PostFormDataImage.imagetitle,
+          post_url: PostFormDataImage.post_url,
+          post_type: type,
+        };
+        const res = await userPostImage(payload);
+        showToast("Post added Successfully", {
+          type: "success",
+          autoCloseTime: 2000,
+        });
+        setTimeout(() => {
+          navigate("/timeline", { replace: true });
+        }, 2000); // delay navigation by 2 seconds (same as autoCloseTime)
+      } catch (error) {
+        showToast("There was an error uploading the post", {
+          type: "error  ",
+          autoCloseTime: 5000,
+        });
+      }
     }
-  }
+  };
 
   console.log(PostFormData);
   console.log(PostFormDataImage);
@@ -192,6 +221,8 @@ const AddPostFormComponent = () => {
           />
 
           <input
+            id="post_url"
+            name="post_url"
             className="choosefile"
             type="file"
             onChange={(event) => {
@@ -206,7 +237,7 @@ const AddPostFormComponent = () => {
         <PrimaryButtonComponent
           size="medium"
           text="Post"
-          onClick={createPost}
+          onClick={() => handleCreatePost(currentSection)}
         />
       </Col>
     </Row>

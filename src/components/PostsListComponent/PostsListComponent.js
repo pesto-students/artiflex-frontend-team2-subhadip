@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { RiHeartAddLine, RiDiscussLine, RiShareLine } from "react-icons/ri";
 import PrimaryButtonComponent from ".././PrimaryButtonComponent/PrimaryButtonComponent";
 import SecondaryButtonComp from "../SecondaryButton/SecondaryButton";
 
-import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 import { storage } from "../../firebase";
+
+import { getAllPosts } from "../../redux/post/postSlice";
 
 import {
   ElevatedCard,
@@ -14,43 +16,60 @@ import {
   Row,
   Typography,
   HorizontalSpacer,
-  Tag,
-  Button,
 } from "@cred/neopop-web/lib/components";
 import {
   mainColors,
   colorPalette,
-  colorGuide,
   fontNameSpaces,
-  getButtonConfig,
 } from "@cred/neopop-web/lib/primitives";
 import styled from "styled-components";
 
 import "./PostsListComponent.css";
+
+import { useDispatch } from "react-redux";
 
 const ContentWrapper = styled.div`
   padding: 20px;
 `;
 
 const PostsListComponent = () => {
+  const dispatch = useDispatch();
+
   const [imageList, setImageList] = React.useState([]);
 
   const imageListRef = ref(storage, "images/");
 
-  const image_url_backend = //put the url coming fromthe backedn
-    React.useEffect(() => {
-      listAll(imageListRef).then((response) => {
-        //remove this line
-        response.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {
-            //replace item with image_url_backend
-            setImageList((prev) => [...prev, url]);
-          });
+  // const image_url_backend = ""; //put the url coming fromthe backedn
+
+  const [allPosts, setAllPosts] = React.useState();
+
+  const usersAllPosts = useCallback(
+    async (payload = {}) => dispatch(getAllPosts(payload)).unwrap(),
+    []
+  );
+
+  const loadAllPosts = async () => {
+    try {
+      const payload = {};
+      const res = await usersAllPosts(payload);
+      setAllPosts(res);
+    } catch (error) {}
+  };
+
+  React.useEffect(() => {
+    loadAllPosts();
+    listAll(imageListRef).then((response) => {
+      //remove this line
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          //replace item with image_url_backend
+          setImageList((prev) => [...prev, url]);
         });
       });
-    }, []);
+    });
+  }, []);
 
-  console.log(imageList[0]);
+  console.log(allPosts);
 
   const listObject = [
     {
