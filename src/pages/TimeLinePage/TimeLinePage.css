@@ -14,8 +14,24 @@
   margin-top: 8px;
 }
 
-.premium,.post-list-container{
+.premium,
+.post-list-container {
   padding-left: 0px !important;
   padding-right: 0px !important;
 }
 
+.recentpost,
+.post-list-container {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.premium {
+  position: fixed;
+  top: 0;
+}
+
+.recentpost {
+  position: fixed;
+  top: 0;
+}

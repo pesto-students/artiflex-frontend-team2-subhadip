@@ -46,3 +46,8 @@
   background-color: #272729;
   border-radius: 30px;
 }
+
+.profile {
+  display: flex;
+  flex-direction: row;
+}

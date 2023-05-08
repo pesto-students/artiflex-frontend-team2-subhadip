@@ -35,7 +35,7 @@ function TimeLinePage() {
               <PostsListComponent />
             </Col>
             <Col sm={1} md={1}></Col>
-            <Col sm={12} md={3} className="premium">
+            <Col sm={12} md={3} className="recentpost">
               <div style={{ marginTop: "20px" }}>
                 <RecentPostCardComponent />
               </div>

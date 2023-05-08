@@ -1,156 +1,192 @@
 import { Typography, HorizontalDivider } from "@cred/neopop-web/lib/components";
-import {
-  FontVariant,
-  colorPalette,
-  fontNameSpaces,
-} from "@cred/neopop-web/lib/primitives";
+import { colorPalette, fontNameSpaces } from "@cred/neopop-web/lib/primitives";
 import styled from "styled-components";
-import { ElevatedCard, Button } from "@cred/neopop-web/lib/components";
+import { ElevatedCard } from "@cred/neopop-web/lib/components";
 
-import { Container, Col, Row } from "react-grid-system";
-import "./LoginPage.css";
 import PrimaryButtonComponent from "../../components/PrimaryButtonComponent/PrimaryButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
 import DarkButtonComponent from "../../components/DarkButtonComponent/DarkButtonComponent";
-import React from "react";
-import axios from "axios";
+import React, { useCallback } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "@cred/neopop-web/lib/components";
 import { showToast } from "@cred/neopop-web/lib/components";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/auth/authSlice";
+import Loader from "../../components/LoaderComponent/LoaderComponent";
+
+import "./LoginPage.css";
 
 const ContentWrapper = styled.div`
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const ActionWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
-  const [LoginFormdata, setloginFormData] = React.useState({
+  const dispatch = useDispatch();
+  const [loginFormData, setLoginFormData] = React.useState({
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  function handleChange(event) {
-    setloginFormData((prevFormData) => {
+  const startLoading = () => {
+    setIsLoading(true);
+  };
+
+  const stopLoading = () => {
+    setIsLoading(false);
+  };
+
+  /**
+   * Redux action for login api
+   * @date 02/04/2023 - 17:06:51
+   *
+   * @type {Promise<object>}
+   */
+  const userLogin = useCallback(
+    async (payload = { email: "", password: "" }) =>
+      dispatch(login(payload)).unwrap(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  /**
+   * Handle the form data change
+   * @date 02/04/2023 - 17:05:56
+   *
+   * @param {*} event
+   */
+  const handleChange = (event) => {
+    setLoginFormData((prevFormData) => {
       return {
         ...prevFormData,
         [event.target.id]: event.target.value,
       };
     });
-  }
+  };
 
-  const login = () => {
-    axios
-      .post("http://localhost:8080/auth/signin", {
-        email: LoginFormdata.email,
-        password: LoginFormdata.password,
-      })
-      .then((res) => {
-        showToast("Sample toast message", {
-          type: "success",
-          autoCloseTime: "5000",
-        });
-        navigate("/timelinepage", { replace: true });
-      })
-      .catch((error) => {
-        showToast(
-          "The login credentials provided are invalid. Please try again with the correct email and password combination.",
-          {
-            type: "error  ",
-            autoCloseTime: "5000",
-          }
-        );
+  /**
+   * Login handler function for login button click
+   * @date 02/04/2023 - 17:09:01
+   *
+   * @async
+   * @returns {void}
+   */
+  const handleLogin = async () => {
+    try {
+      startLoading(); // start the loader
+      const payload = {
+        email: loginFormData.email,
+        password: loginFormData.password,
+      };
+      const res = await userLogin(payload);
+      console.dir(res);
+      stopLoading();
+      localStorage.setItem("accessToken", res.token);
+      showToast("Login Successful", {
+        type: "success",
+        autoCloseTime: "2000",
       });
+      setTimeout(() => {
+        navigate("/timeline", { replace: true });
+      }, 2000); // delay navigation by 2 seconds (same as autoCloseTime)
+    } catch (error) {
+      stopLoading();
+      showToast(
+        "The login credentials provided are invalid. Please try again with the correct email and password combination.",
+        {
+          type: "error  ",
+          autoCloseTime: "5000",
+        }
+      );
+    }
   };
 
-  const register = () => {
-    navigate("/registerpage", { replace: true });
+  /**
+   * Navigate to register page
+   * @date 02/04/2023 - 17:08:31
+   */
+  const navigateToRegister = () => {
+    navigate("/register", { replace: true });
   };
-
-  console.log(LoginFormdata);
 
   return (
     <div className="login_page">
       <div className="form_section_outer_div">
         <div className="logo"></div>
         <section className="form_section">
-          <div>
-            <ToastContainer />
-            <ElevatedCard
-              className="form"
-              backgroundColor="#fff0e5"
-              edgeColors={{
-                bottom: "yellow",
-                right: "yellow",
-              }}
-              style={{
-                width: "100%",
-              }}
-            >
-              <ContentWrapper
-                className="content_wrapper"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  gap: "30px",
-                  border: "1px solid black",
-                }}
-              >
-                <Typography {...fontNameSpaces.tc12b} color="black">
-                  Welcome
-                </Typography>
-                <PrimaryButtonComponent
-                  text="Login with google"
-                  size="medium"
-                />
-                <HorizontalDivider color={colorPalette.popBlack[100]} />
+          <Loader hidden={isLoading} />
 
-                <form className="input_form_fields">
-                  <InputComponent
-                    label="Email"
-                    type="email"
-                    maxLength={30}
-                    id="email"
-                    inputMode="email"
-                    onChange={handleChange}
-                    name="email"
-                  />
+          <ElevatedCard
+            className="form"
+            backgroundColor="#fff0e5"
+            edgeColors={{
+              bottom: "yellow",
+              right: "yellow",
+            }}
+            style={{
+              width: "50%",
+            }}
+          >
+            <ContentWrapper>
+              <Typography {...fontNameSpaces.tc12b} color="black">
+                Welcome
+              </Typography>
+              {/* <PrimaryButtonComponent text="Login with google" size="medium" /> */}
+              <HorizontalDivider color={colorPalette.popBlack[100]} />
 
-                  <InputComponent
-                    label="Password"
-                    type="password"
-                    maxLength={20}
-                    id="password"
-                    inputMode="password"
-                    onChange={handleChange}
-                    name="password"
-                  />
-                </form>
+              <InputComponent
+                label="Email"
+                type="email"
+                maxLength={30}
+                id="email"
+                inputMode="email"
+                onChange={handleChange}
+                name="email"
+              />
 
+              <InputComponent
+                label="Password"
+                type="password"
+                maxLength={20}
+                id="password"
+                inputMode="password"
+                onChange={handleChange}
+                name="password"
+              />
+              <ActionWrapper>
                 <PrimaryButtonComponent
                   text="Login"
                   size="small"
                   color="black"
                   borderColor="black"
-                  onClick={login}
+                  onClick={handleLogin}
                 />
-              </ContentWrapper>
-            </ElevatedCard>
-          </div>
-          <div className="login_button">
+              </ActionWrapper>
+            </ContentWrapper>
+          </ElevatedCard>
+
+          <div>
             <Typography {...fontNameSpaces.tc12b} color="white">
               Dont have an account
               <DarkButtonComponent
                 size="small"
                 text="Sign in"
-                onClick={register}
+                onClick={navigateToRegister}
               />
             </Typography>
           </div>
         </section>
       </div>
-
       <section className="image_section">
         <Typography
           color="white"
@@ -161,6 +197,7 @@ const LoginPage = () => {
           Discovery,Sell & Create Digital Content
         </Typography>
       </section>
+      <ToastContainer />
     </div>
   );
 };
