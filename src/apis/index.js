@@ -41,9 +41,18 @@ const createPostForImage = async (
 const getAllPosts = async (apiArgs = {}) => {
   const accessToken = localStorage.getItem("accessToken");
   const headers = { Authorization: `Bearer ${accessToken}` };
-  const { data } = await axios.post(`${SERVER_URL}/post/posts`, apiArgs, {
+  const { data, status } = await axios.get(`${SERVER_URL}/post/posts`, {
     headers,
+    params: apiArgs,
   });
+
+  if (status >= 200 && status < 300) {
+    console.log("API request was successful!");
+    console.log(data); // This will log the data returned from the API to the console.
+  } else {
+    console.error("API request failed!");
+    console.error(data); // This will log the error message returned from the API to the console.
+  }
 
   return data;
 };

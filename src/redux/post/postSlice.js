@@ -43,7 +43,7 @@ export const getAllPosts = createAsyncThunk(
   async (payload = {}, thunkApi) => {
     try {
       const response = await apis.getAllPosts(payload);
-      return response.data;
+      return response.allPosts;
     } catch (error) {
       return thunkApi.rejectWithValue(
         error?.response?.data || { data: error.message }

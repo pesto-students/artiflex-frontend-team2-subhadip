@@ -31,10 +31,40 @@
 }
 
 .form-footer {
+  display: flex;
+  flex-direction: row;
   margin-block: 15px;
-  text-align: end;
+  /* margin-top: 35px; */
+  gap: 20px;
+  justify-content: end;
 }
 
 .choosefile {
   margin-block: 30px;
+}
+
+.dropArea {
+  position: relative;
+  display: grid;
+  place-items: center;
+  /* background-color: aliceblue; */
+  width: 100%;
+  height: 250px;
+  /* margin-top: 10px; */
+}
+
+.preview {
+  position: absolute;
+}
+
+.text {
+  margin: 0px;
+  color: aliceblue;
+  border: dotted #555 3px;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

@@ -14,6 +14,7 @@ const SecondaryButtonComp = (props) => {
         color: { color },
         borderColor: "black",
       }}
+      onClick={props.onClick}
     >
       {text}
     </Button>

@@ -13,6 +13,7 @@ import { ToastContainer } from "@cred/neopop-web/lib/components";
 import { showToast } from "@cred/neopop-web/lib/components";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/auth/authSlice";
+import Loader from "../../components/LoaderComponent/LoaderComponent";
 
 import "./LoginPage.css";
 
@@ -35,6 +36,15 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const startLoading = () => {
+    setIsLoading(true);
+  };
+
+  const stopLoading = () => {
+    setIsLoading(false);
+  };
 
   /**
    * Redux action for login api
@@ -73,12 +83,14 @@ const LoginPage = () => {
    */
   const handleLogin = async () => {
     try {
+      startLoading(); // start the loader
       const payload = {
         email: loginFormData.email,
         password: loginFormData.password,
       };
       const res = await userLogin(payload);
-      console.log(res);
+      console.dir(res);
+      stopLoading();
       localStorage.setItem("accessToken", res.token);
       showToast("Login Successful", {
         type: "success",
@@ -88,6 +100,7 @@ const LoginPage = () => {
         navigate("/timeline", { replace: true });
       }, 2000); // delay navigation by 2 seconds (same as autoCloseTime)
     } catch (error) {
+      stopLoading();
       showToast(
         "The login credentials provided are invalid. Please try again with the correct email and password combination.",
         {
@@ -111,6 +124,8 @@ const LoginPage = () => {
       <div className="form_section_outer_div">
         <div className="logo"></div>
         <section className="form_section">
+          <Loader hidden={isLoading} />
+
           <ElevatedCard
             className="form"
             backgroundColor="#fff0e5"

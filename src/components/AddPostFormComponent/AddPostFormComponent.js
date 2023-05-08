@@ -17,13 +17,16 @@ import axios from "axios";
 import { ToastContainer } from "@cred/neopop-web/lib/components";
 import { showToast } from "@cred/neopop-web/lib/components";
 import { useNavigate } from "react-router-dom";
-import { concatenate } from "workbox-streams";
 import { useDispatch } from "react-redux";
 import { createPost, createPostForImage } from "../../redux/post/postSlice";
+import { useDropzone } from "react-dropzone";
+import Loader from "../LoaderComponent/LoaderComponent";
 
 const AddPostFormComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [currentSection, setCurrentSection] = React.useState("post");
 
@@ -32,6 +35,40 @@ const AddPostFormComponent = () => {
   const [PostFormData, SetPostFormdata] = React.useState({});
 
   const [PostFormDataImage, SetPostFormdataImage] = React.useState({});
+
+  const [files, setFiles] = React.useState([]);
+
+  const startLoading = () => {
+    setIsLoading(true);
+  };
+
+  const stopLoading = () => {
+    setIsLoading(false);
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/*",
+    maxFiles: 1,
+    onDrop: (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      setFiles([
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        }),
+      ]);
+      console.log(acceptedFiles);
+      settingImageToUpload({ target: { files: acceptedFiles } }); // call the function here
+    },
+  });
+
+  const images = files.map((file) => (
+    <img
+      key={file.name}
+      src={file.preview}
+      alt="image"
+      style={{ width: "200px", height: "200px" }}
+    />
+  ));
 
   function handleChange(event) {
     SetPostFormdata((prevFormData) => {
@@ -51,29 +88,29 @@ const AddPostFormComponent = () => {
     });
   }
 
-  const uploadImage = () => {
-    if (imageUpload === null) {
-      showToast("Please choose an image to Upload", {
-        type: "error",
-        autoCloseTime: "5000",
-      });
+  function settingImageToUpload(event) {
+    setImageUpload(event.target.files[0]);
+  }
+
+  const uploadImage = async () => {
+    try {
+      if (imageUpload === null) {
+        showToast("Please choose an image to Upload", {
+          type: "error",
+          autoCloseTime: "5000",
+        });
+      }
+      const file_name = `images/${imageUpload.name}`;
+
+      const imageRef = ref(storage, file_name);
+
+      const snapshot = await uploadBytes(imageRef, imageUpload);
+      const downloadURL = await getDownloadURL(snapshot.ref);
+      console.log("Download URL", downloadURL);
+      return downloadURL;
+    } catch (error) {
+      console.log(error);
     }
-    const file_name = `images/${imageUpload.name + v4()}`;
-
-    const token = file_name.split(".").pop();
-
-    const imageRef = ref(storage, file_name);
-
-    SetPostFormdataImage((prevFormData) => {
-      return {
-        ...prevFormData,
-        post_url: token,
-      };
-    });
-
-    uploadBytes(imageRef, imageUpload).then(() => {
-      // alert("Image Uploaded");
-    });
   };
 
   //function to toggle between the sections
@@ -97,12 +134,14 @@ const AddPostFormComponent = () => {
   const handleCreatePost = async (type) => {
     if (type == "post") {
       try {
+        startLoading(); // start the loader
         const payload = {
           title: PostFormData.title,
           description: PostFormData.description,
           post_type: type,
         };
         const res = await userPost(payload);
+        stopLoading();
         showToast("Post added Successfully", {
           type: "success",
           autoCloseTime: 2000,
@@ -111,28 +150,37 @@ const AddPostFormComponent = () => {
           navigate("/timeline", { replace: true });
         }, 2000); // delay navigation by 2 seconds (same as autoCloseTime)
       } catch (error) {
+        stopLoading();
         showToast("There was an error uploading the post", {
           type: "error  ",
           autoCloseTime: 5000,
         });
       }
     } else {
-      // uploadImage();
       try {
+        startLoading(); // start the loader
+        const downloadURL = await uploadImage();
+
         const payload = {
           title: PostFormDataImage.imagetitle,
-          post_url: PostFormDataImage.post_url,
+          post_url: downloadURL,
+          description: "hello",
+          tags: "sup",
+          for_sell: 0,
+          post_price: 0,
           post_type: type,
         };
         const res = await userPostImage(payload);
+        stopLoading();
         showToast("Post added Successfully", {
           type: "success",
           autoCloseTime: 2000,
         });
         setTimeout(() => {
-          navigate("/timeline", { replace: true });
+          navigate("/timeline", { replace: true }); //redirect to his own profile page
         }, 2000); // delay navigation by 2 seconds (same as autoCloseTime)
       } catch (error) {
+        stopLoading();
         showToast("There was an error uploading the post", {
           type: "error  ",
           autoCloseTime: 5000,
@@ -155,29 +203,22 @@ const AddPostFormComponent = () => {
       />
       <ToastContainer />
       <Col sm={12} xs={12} md={12} className="sections">
-        <label>
-          <input
-            type="radio"
-            name="option"
-            value="post"
-            onClick={() => toggleFormSection("post")}
-          />
-          Post
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="option"
-            value="images"
-            onClick={() => toggleFormSection("images")}
-          />
-          Images
-        </label>
+        <PrimaryButtonComponent
+          size="small"
+          text="Post"
+          onClick={() => toggleFormSection("post")}
+        />
+        <PrimaryButtonComponent
+          size="small"
+          text="Image"
+          onClick={() => toggleFormSection("images")}
+        />
       </Col>
 
       {currentSection === "post" && (
         <>
           <Col sm={12} xs={12} md={12} className="title-field">
+            <Loader hidden={isLoading} />
             <Typography color="grey">Title</Typography>
             <InputComponent
               className="texttitle"
@@ -210,6 +251,7 @@ const AddPostFormComponent = () => {
 
       {currentSection === "images" && (
         <Col sm={12} xs={12} md={12} className="image">
+          <Loader hidden={isLoading} />
           <Typography color="grey">Title</Typography>
           <InputComponent
             type="text"
@@ -220,20 +262,21 @@ const AddPostFormComponent = () => {
             name="imagetitle"
           />
 
-          <input
-            id="post_url"
-            name="post_url"
-            className="choosefile"
-            type="file"
-            onChange={(event) => {
-              setImageUpload(event.target.files[0]);
-            }}
-          />
-          <button onClick={uploadImage}>Upload image</button>
+          <div className="dropArea" {...getRootProps()}>
+            <input {...getInputProps()} />
+            <p className="text">Drag and drop here or click here</p>
+            <div className="preview">{images}</div>
+          </div>
         </Col>
       )}
 
       <Col className="form-footer">
+        <PrimaryButtonComponent
+          size="medium"
+          text="Cancel"
+          onClick={() => navigate("/timeline", { replace: true })}
+        />
+
         <PrimaryButtonComponent
           size="medium"
           text="Post"

@@ -10,6 +10,8 @@ import { storage } from "../../firebase";
 
 import { getAllPosts } from "../../redux/post/postSlice";
 
+import { useNavigate } from "react-router-dom";
+
 import {
   ElevatedCard,
   Column,
@@ -27,6 +29,7 @@ import styled from "styled-components";
 import "./PostsListComponent.css";
 
 import { useDispatch } from "react-redux";
+import Loader from "../LoaderComponent/LoaderComponent";
 
 const ContentWrapper = styled.div`
   padding: 20px;
@@ -34,14 +37,23 @@ const ContentWrapper = styled.div`
 
 const PostsListComponent = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [imageList, setImageList] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
-  const imageListRef = ref(storage, "images/");
+  // const [imageList, setImageList] = React.useState([]);
 
-  // const image_url_backend = ""; //put the url coming fromthe backedn
+  // const imageListRef = ref(storage, "images/");
 
-  const [allPosts, setAllPosts] = React.useState();
+  const [allPosts, setAllPosts] = React.useState([]);
+
+  const startLoading = () => {
+    setIsLoading(true);
+  };
+
+  const stopLoading = () => {
+    setIsLoading(false);
+  };
 
   const usersAllPosts = useCallback(
     async (payload = {}) => dispatch(getAllPosts(payload)).unwrap(),
@@ -49,195 +61,146 @@ const PostsListComponent = () => {
   );
 
   const loadAllPosts = async () => {
+    startLoading(); // start the loader
     try {
       const payload = {};
       const res = await usersAllPosts(payload);
+      stopLoading();
       setAllPosts(res);
-    } catch (error) {}
+    } catch (error) {
+      stopLoading();
+    }
   };
 
   React.useEffect(() => {
     loadAllPosts();
-    listAll(imageListRef).then((response) => {
-      //remove this line
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          //replace item with image_url_backend
-          setImageList((prev) => [...prev, url]);
-        });
-      });
-    });
   }, []);
 
   console.log(allPosts);
 
-  const listObject = [
-    {
-      likes: 22,
-      title: "Nike Air",
-      comments: 2,
-      content:
-        "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-      type: "image",
-    },
-    {
-      likes: 1,
-      title: "Nike Jordan",
-      comments: 2111,
-      content:
-        "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-      type: "image",
-    },
-    {
-      likes: 1,
-      title: "Elon musk",
-      comments: 212,
-      content: "hello my name is elon musk",
-      type: "text",
-    },
-    {
-      likes: 1,
-      title: "kendrik",
-      comments: 212,
-      content: imageList[0],
-      type: "image",
-    },
-  ];
+  // const enableRight = (event) => {
+  //   if (event.button == 2) {
+  //     alert("Right-click disabled");
+  //     event.preventDefault();
+  //   }
+  // };
+
   return (
     <>
-      {listObject.map((item) => {
-        return (
-          <ElevatedCard
-            backgroundColor="#FFFAE5"
-            edgeColors={{
-              bottom: "#67FF88",
-              right: "#67FF88",
-            }}
-            style={{ marginBottom: "20px" }}
-          >
-            <ContentWrapper>
-              <Column>
-                <Row className="v-justify">
-                  <div>
-                    <Row>
-                      <RiHeartAddLine
-                        style={{
-                          fill: "black",
-                          fontSize: "30px",
-                          margin: "auto",
-                        }}
-                      />
-                      <Typography
-                        {...fontNameSpaces.th16b}
-                        color={colorPalette.pinkPong[500]}
-                        overflow="ellipsis"
-                        style={{ margin: "auto", marginLeft: "5px" }}
-                      >
-                        {item.likes}
-                      </Typography>
-                      <HorizontalSpacer n={3} />
-                      <Typography
-                        {...fontNameSpaces.tc12b}
-                        color={mainColors.black}
-                        style={{ margin: "auto", marginLeft: "30px" }}
-                      >
-                        {item.title}
-                      </Typography>
+      {/* if length is There is present */}
+      {allPosts.length &&
+        allPosts.map((item) => {
+          return (
+            <ElevatedCard
+              backgroundColor="#FFFAE5"
+              edgeColors={{
+                bottom: "#67FF88",
+                right: "#67FF88",
+              }}
+              style={{ marginBottom: "20px" }}
+            >
+              <ContentWrapper>
+                <Column>
+                  <Row className="v-justify">
+                    <div>
+                      <Row>
+                        <RiHeartAddLine className="like-icon" />
+                        <Typography
+                          {...fontNameSpaces.th16b}
+                          color={colorPalette.pinkPong[500]}
+                          overflow="ellipsis"
+                          style={{ margin: "auto", marginLeft: "5px" }}
+                        >
+                          {item.likes}
+                        </Typography>
+                        <HorizontalSpacer n={3} />
+                        <Typography
+                          {...fontNameSpaces.tc12b}
+                          color={mainColors.black}
+                          style={{ margin: "auto", marginLeft: "30px" }}
+                        >
+                          {item.title}
+                        </Typography>
+                      </Row>
+                    </div>
+                    <Row
+                      style={{
+                        width: "30px",
+                        height: "30px",
+                      }}
+                      className="h-center v-center active-status-border"
+                    >
+                      <div className="active-status" />
                     </Row>
-                  </div>
-                  <Row
-                    style={{
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "50%",
-                      border: `1px solid ${mainColors.black}`,
-                    }}
-                    className="h-center v-center"
-                  >
-                    <div
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        borderRadius: "50%",
-                        backgroundColor: colorPalette.success[500],
-                      }}
-                    />
                   </Row>
-                </Row>
-                <HorizontalSpacer n={5} />
-                <div style={{ maxWidth: "100%", margin: "auto" }}>
-                  {item.type === "image" ? (
-                    <img
-                      src={item.content}
-                      className="image-style"
-                      alt="postmedia"
-                    />
-                  ) : item.type === "text" ? (
-                    <Typography
-                      {...fontNameSpaces.tc12b}
-                      color={mainColors.black}
-                    >
-                      {item.content}
-                    </Typography>
-                  ) : (
-                    "nothing"
-                  )}
+                  <HorizontalSpacer n={5} />
+                  <div>
+                    {item.post_type === "images" ? (
+                      <>
+                        <Loader hidden={isLoading} />
 
-                  {/* <img
-                    src={item.content}
-                    className="image-style"
-                    alt="postmedia"
-                  /> */}
-                </div>
-                <HorizontalSpacer n={6} />
-                <Row className="inside-card">
-                  <div style={{ display: "flex", gap: "10px", width: "140px" }}>
-                    <RiDiscussLine
-                      style={{
-                        fill: "black",
-                        fontSize: "30px",
-                        margin: "auto",
-                      }}
-                    />
-                    <Typography
-                      color={mainColors.black}
-                      style={{ margin: "auto" }}
-                    >
-                      {item.comments}Comments
-                    </Typography>
+                        <img
+                          src={item.post_url}
+                          // oncontextmenu="alert('Right-click disabled'); return false;"
+                          className="image-style"
+                          alt="postmedia"
+                          // onContextMenu={enableRight}
+                        />
+                      </>
+                    ) : item.post_type === "text" ? (
+                      <>
+                        <Loader hidden={isLoading} />
+
+                        <Typography
+                          className="description"
+                          {...fontNameSpaces.tc12b}
+                          color={mainColors.black}
+                        >
+                          {item.description}
+                        </Typography>
+                      </>
+                    ) : (
+                      "nothing"
+                    )}
                   </div>
-                  <div style={{ display: "flex", width: "140px" }}>
-                    <RiShareLine
-                      style={{
-                        fill: "black",
-                        fontSize: "30px",
-                        margin: "auto",
-                      }}
-                    />
-                    <Typography
-                      color={mainColors.black}
-                      style={{ margin: "auto" }}
-                    >
-                      Share
-                    </Typography>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "30px",
-                      width: "100%",
-                      justifyContent: "end",
-                    }}
-                  >
-                    <SecondaryButtonComp size="medium" text="View" />
-                    <PrimaryButtonComponent size="medium" text="Buy Now" />
-                  </div>
-                </Row>
-              </Column>
-            </ContentWrapper>
-          </ElevatedCard>
-        );
-      })}
+                  <HorizontalSpacer n={6} />
+                  <Row className="inside-card-footer">
+                    <div className="comment-outer-div">
+                      <RiDiscussLine className="comment-icon" />
+                      <Typography
+                        color={mainColors.black}
+                        style={{ margin: "auto" }}
+                      >
+                        {item.comments}Comments
+                      </Typography>
+                    </div>
+
+                    <div className="share-icon-outer-div">
+                      <RiShareLine className="share-icon" />
+                      <Typography
+                        color={mainColors.black}
+                        style={{ margin: "auto" }}
+                      >
+                        Share
+                      </Typography>
+                    </div>
+
+                    <div className="button-action">
+                      <SecondaryButtonComp
+                        size="medium"
+                        text="View"
+                        onClick={() =>
+                          navigate(`/post/${item._id}`, { replace: true })
+                        }
+                      />
+                      <PrimaryButtonComponent size="medium" text="Buy Now" />
+                    </div>
+                  </Row>
+                </Column>
+              </ContentWrapper>
+            </ElevatedCard>
+          );
+        })}
     </>
   );
 };

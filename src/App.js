@@ -11,6 +11,7 @@ import {
   TimeLinePage,
   MainPage,
   AddPostFormPage,
+  ViewPostPage,
 } from "./pages";
 
 import LayoutA from "./layouts/LayoutA";
@@ -82,6 +83,20 @@ const router = createBrowserRouter([
         element: (
           <React.Suspense fallback={<div>Loading...</div>}>
             <AddPostFormPage />
+          </React.Suspense>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/post/:post_id",
+    // element: <LayoutA />,
+    children: [
+      {
+        path: "",
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <ViewPostPage />
           </React.Suspense>
         ),
       },
