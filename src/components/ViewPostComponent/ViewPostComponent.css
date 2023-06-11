@@ -7,17 +7,19 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-block: 30px;
+  margin-block: 50px;
+  top: 60px;
+  position: relative;
 }
 
 .image-outer-div > img {
   border: 1px solid navy;
-  margin-block: 45px;
+  margin-block: 60px;
 }
 
 .title_name {
   font-size: 25px !important;
-  margin-top: 53px;
+  margin-top: 70px;
   margin-bottom: 15px;
 }
 
@@ -76,12 +78,6 @@
   gap: 30px;
 }
 
-.share-icon {
-  font-size: 30px;
-  margin-top: 30px;
-  fill: #660f56;
-}
-
 .share-icon-outer-div {
   display: flex;
   flex-direction: row;
@@ -90,4 +86,8 @@
 
 .share-icon:hover {
   opacity: 0.5;
+}
+
+.view_post_main_div {
+  border: 1px solid;
 }

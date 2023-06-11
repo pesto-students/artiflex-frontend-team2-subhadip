@@ -68,3 +68,8 @@
   justify-content: center;
   flex-direction: column;
 }
+
+textarea {
+  width: 100%;
+  resize: vertical;
+}

@@ -12,8 +12,7 @@ import { Typography } from "@cred/neopop-web/lib/components";
 import PrimaryButtonComponent from "../PrimaryButtonComponent/PrimaryButtonComponent";
 import { storage } from "../../firebase";
 import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
-import { v4 } from "uuid";
-import axios from "axios";
+
 import { ToastContainer } from "@cred/neopop-web/lib/components";
 import { showToast } from "@cred/neopop-web/lib/components";
 import { useNavigate } from "react-router-dom";
@@ -88,6 +87,9 @@ const AddPostFormComponent = () => {
     });
   }
 
+  console.log(PostFormDataImage);
+  console.log(PostFormData);
+
   function settingImageToUpload(event) {
     setImageUpload(event.target.files[0]);
   }
@@ -125,8 +127,16 @@ const AddPostFormComponent = () => {
   );
 
   const userPostImage = useCallback(
-    async (payload = { title: "", post_url: "", post_type: "" }) =>
-      dispatch(createPostForImage(payload)).unwrap(),
+    async (
+      payload = {
+        title: "",
+        description: "",
+        post_url: "",
+        post_type: "",
+        // for_sell: "",
+        // post_price: "",
+      }
+    ) => dispatch(createPostForImage(payload)).unwrap(),
     []
   );
 
@@ -138,8 +148,10 @@ const AddPostFormComponent = () => {
         const payload = {
           title: PostFormData.title,
           description: PostFormData.description,
-          post_type: type,
+          post_type: "text",
+          tags: "remove it later",
         };
+
         const res = await userPost(payload);
         stopLoading();
         showToast("Post added Successfully", {
@@ -160,15 +172,14 @@ const AddPostFormComponent = () => {
       try {
         startLoading(); // start the loader
         const downloadURL = await uploadImage();
-
         const payload = {
           title: PostFormDataImage.imagetitle,
+          description: PostFormDataImage.imagedescription,
           post_url: downloadURL,
-          description: "hello",
-          tags: "sup",
-          for_sell: 0,
-          post_price: 0,
           post_type: type,
+          tags: "sup",
+          // for_sell: PostFormDataImage.imagePostPrice,
+          // post_price: PostFormDataImage.imageSellPrice,
         };
         const res = await userPostImage(payload);
         stopLoading();
@@ -189,8 +200,8 @@ const AddPostFormComponent = () => {
     }
   };
 
-  console.log(PostFormData);
-  console.log(PostFormDataImage);
+  // console.log(PostFormData);
+  // console.log(PostFormDataImage);
 
   return (
     <Row className="add_post_form_outer_div">
@@ -261,12 +272,38 @@ const AddPostFormComponent = () => {
             onChange={handleChangeImage}
             name="imagetitle"
           />
+          <Typography color="grey">Description</Typography>
+          <textarea
+            id="imagedescription"
+            name="imagedescription"
+            rows="4"
+            maxLength={300}
+            onChange={handleChangeImage}
+          ></textarea>
 
           <div className="dropArea" {...getRootProps()}>
             <input {...getInputProps()} />
             <p className="text">Drag and drop here or click here</p>
             <div className="preview">{images}</div>
           </div>
+
+          <Typography color="grey">Post Price</Typography>
+          <InputComponent
+            type="number"
+            id="imagePostPrice"
+            inputMode="number"
+            onChange={handleChangeImage}
+            name="imagePostPrice"
+          />
+
+          <Typography color="grey">Sell Price</Typography>
+          <InputComponent
+            type="number"
+            id="imageSellPrice"
+            inputMode="number"
+            onChange={handleChangeImage}
+            name="imageSellPrice"
+          />
         </Col>
       )}
 

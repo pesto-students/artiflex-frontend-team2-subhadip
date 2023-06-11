@@ -52,6 +52,21 @@ export const getAllPosts = createAsyncThunk(
   }
 );
 
+// creating async action for image post
+export const getOnePosts = createAsyncThunk(
+  "post/post",
+  async (payload = { id: "" }, thunkApi) => {
+    try {
+      const response = await apis.getOnePosts(payload);
+      return response.Post;
+    } catch (error) {
+      return thunkApi.rejectWithValue(
+        error?.response?.data || { data: error.message }
+      );
+    }
+  }
+);
+
 export const postSlice = createSlice({
   name: "post",
   initialState,
@@ -92,6 +107,19 @@ export const postSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(getAllPosts.rejected, (state, action) => {
+        state.asyncStatus = "FAILURE";
+        state.error = action.payload.data;
+      });
+
+    builder
+      .addCase(getOnePosts.pending, (state, action) => {
+        state.asyncStatus = "LOADING";
+      })
+      .addCase(getOnePosts.fulfilled, (state, action) => {
+        state.asyncStatus = "SUCCESS";
+        state.data = action.payload;
+      })
+      .addCase(getOnePosts.rejected, (state, action) => {
         state.asyncStatus = "FAILURE";
         state.error = action.payload.data;
       });

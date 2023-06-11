@@ -12,6 +12,8 @@ import {
   MainPage,
   AddPostFormPage,
   ViewPostPage,
+  PremiumPage,
+  ProfilePage,
 } from "./pages";
 
 import LayoutA from "./layouts/LayoutA";
@@ -89,6 +91,20 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/premium",
+    // element: <LayoutA />,
+    children: [
+      {
+        path: "",
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <PremiumPage />
+          </React.Suspense>
+        ),
+      },
+    ],
+  },
+  {
     path: "/post/:post_id",
     // element: <LayoutA />,
     children: [
@@ -97,6 +113,20 @@ const router = createBrowserRouter([
         element: (
           <React.Suspense fallback={<div>Loading...</div>}>
             <ViewPostPage />
+          </React.Suspense>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/profile",
+    // element: <LayoutA />,
+    children: [
+      {
+        path: "",
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <ProfilePage />
           </React.Suspense>
         ),
       },

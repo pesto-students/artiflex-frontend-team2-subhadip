@@ -4,11 +4,11 @@ import { RiHeartAddLine, RiDiscussLine, RiShareLine } from "react-icons/ri";
 import PrimaryButtonComponent from ".././PrimaryButtonComponent/PrimaryButtonComponent";
 import SecondaryButtonComp from "../SecondaryButton/SecondaryButton";
 
-import { ref, listAll, getDownloadURL } from "firebase/storage";
+// import { ref, listAll, getDownloadURL } from "firebase/storage";
 
-import { storage } from "../../firebase";
+// import { storage } from "../../firebase";
 
-import { getAllPosts } from "../../redux/post/postSlice";
+// import { getAllPosts } from "../../redux/post/postSlice";
 
 import { useNavigate } from "react-router-dom";
 
@@ -28,83 +28,37 @@ import styled from "styled-components";
 
 import "./PostsListComponent.css";
 
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import Loader from "../LoaderComponent/LoaderComponent";
 
 const ContentWrapper = styled.div`
   padding: 20px;
 `;
 
-const PostsListComponent = () => {
-  const dispatch = useDispatch();
+const PostsListComponent = ({ allPostsArr }) => {
+  // const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [isLoading, setIsLoading] = React.useState(false);
-
-  // const [imageList, setImageList] = React.useState([]);
-
-  // const imageListRef = ref(storage, "images/");
-
-  const [allPosts, setAllPosts] = React.useState([]);
-
-  const startLoading = () => {
-    setIsLoading(true);
-  };
-
-  const stopLoading = () => {
-    setIsLoading(false);
-  };
-
-  const usersAllPosts = useCallback(
-    async (payload = {}) => dispatch(getAllPosts(payload)).unwrap(),
-    []
-  );
-
-  const loadAllPosts = async () => {
-    startLoading(); // start the loader
-    try {
-      const payload = {};
-      const res = await usersAllPosts(payload);
-      stopLoading();
-      setAllPosts(res);
-    } catch (error) {
-      stopLoading();
-    }
-  };
-
-  React.useEffect(() => {
-    loadAllPosts();
-  }, []);
-
-  console.log(allPosts);
-
-  // const enableRight = (event) => {
-  //   if (event.button == 2) {
-  //     alert("Right-click disabled");
-  //     event.preventDefault();
-  //   }
-  // };
 
   return (
     <>
       {/* if length is There is present */}
-      {allPosts.length &&
-        allPosts.map((item) => {
+      {allPostsArr.length &&
+        allPostsArr.map((item) => {
           return (
             <ElevatedCard
               backgroundColor="#FFFAE5"
               edgeColors={{
-                bottom: "#67FF88",
-                right: "#67FF88",
+                bottom: "#eefc57",
+                right: "yellow",
               }}
               style={{ marginBottom: "20px" }}
             >
-              <ContentWrapper>
+              <ContentWrapper className="post-card">
                 <Column>
                   <Row className="v-justify">
                     <div>
                       <Row>
-                        <RiHeartAddLine className="like-icon" />
+                        <RiHeartAddLine className="like-icon icon" />
                         <Typography
                           {...fontNameSpaces.th16b}
                           color={colorPalette.pinkPong[500]}
@@ -137,8 +91,6 @@ const PostsListComponent = () => {
                   <div>
                     {item.post_type === "images" ? (
                       <>
-                        <Loader hidden={isLoading} />
-
                         <img
                           src={item.post_url}
                           // oncontextmenu="alert('Right-click disabled'); return false;"
@@ -149,8 +101,6 @@ const PostsListComponent = () => {
                       </>
                     ) : item.post_type === "text" ? (
                       <>
-                        <Loader hidden={isLoading} />
-
                         <Typography
                           className="description"
                           {...fontNameSpaces.tc12b}
@@ -166,7 +116,7 @@ const PostsListComponent = () => {
                   <HorizontalSpacer n={6} />
                   <Row className="inside-card-footer">
                     <div className="comment-outer-div">
-                      <RiDiscussLine className="comment-icon" />
+                      <RiDiscussLine className="comment-icon icon" />
                       <Typography
                         color={mainColors.black}
                         style={{ margin: "auto" }}
@@ -176,7 +126,7 @@ const PostsListComponent = () => {
                     </div>
 
                     <div className="share-icon-outer-div">
-                      <RiShareLine className="share-icon" />
+                      <RiShareLine className="share-icon icon" />
                       <Typography
                         color={mainColors.black}
                         style={{ margin: "auto" }}
@@ -185,16 +135,20 @@ const PostsListComponent = () => {
                       </Typography>
                     </div>
 
-                    <div className="button-action">
-                      <SecondaryButtonComp
-                        size="medium"
-                        text="View"
-                        onClick={() =>
-                          navigate(`/post/${item._id}`, { replace: true })
-                        }
-                      />
-                      <PrimaryButtonComponent size="medium" text="Buy Now" />
-                    </div>
+                    {item.post_type === "images" ? (
+                      <div className="button-action">
+                        <SecondaryButtonComp
+                          size="medium"
+                          text="View"
+                          onClick={() =>
+                            navigate(`/post/${item._id}`, { replace: true })
+                          }
+                        />
+                        <PrimaryButtonComponent size="medium" text="Buy Now" />
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </Row>
                 </Column>
               </ContentWrapper>

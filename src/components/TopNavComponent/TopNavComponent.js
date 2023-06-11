@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-grid-system";
 import "./TopNavComponent.css";
 import { Typography } from "@cred/neopop-web/lib/components";
+import { useNavigate } from "react-router-dom";
 
 import SearchInputField from "../../components/SearchBarComponent/SearchBarComponent";
 import {
@@ -13,11 +14,16 @@ import {
 } from "react-icons/ri";
 
 const TopNavComponent = () => {
+  const navigate = useNavigate();
+
   return (
     <Container fluid className="topnav_outer_div">
       <Row>
         <Col xs={4} md={3}>
-          <div className="logo"></div>
+          <div
+            className="logo"
+            onClick={() => navigate("/timeline", { replace: true })}
+          ></div>
         </Col>
         <Col xs={3} md={5.5} className="search_bar">
           <SearchInputField />
@@ -50,7 +56,7 @@ const TopNavComponent = () => {
             color="white"
             // fontSize={30}
             fontWeight={500}
-            className="title_name"
+            // className="title_name"
           >
             Exo Sapien
           </Typography>

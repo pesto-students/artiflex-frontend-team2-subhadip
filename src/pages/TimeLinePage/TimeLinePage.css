@@ -4,7 +4,9 @@
 }
 
 .time_line_main_div {
-  margin-top: 20px;
+  /* margin-top: 20px; */
+  position: relative !important;
+  top: 85px;
 }
 
 .all_button,
@@ -34,4 +36,9 @@
 .recentpost {
   position: fixed;
   top: 0;
+}
+
+.to-top-button {
+  position: fixed;
+  bottom: 0;
 }

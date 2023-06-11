@@ -4,12 +4,14 @@ import { Container, Row, Col } from "react-grid-system";
 
 import TopNavComponent from "../../components/TopNavComponent/TopNavComponent";
 import AddPostFormComponent from "../../components/AddPostFormComponent/AddPostFormComponent";
+import AnimCursorComponent from "../../components/AnimCursorComponent/AnimCursorComponent";
 
 function TimeLinePage() {
   return (
     <div>
       <TopNavComponent />
-      <div className="time_line_main_div">
+      <AnimCursorComponent />
+      <div className="add_post_main_div">
         <Container>
           <Row>
             <Col sm={1} md={2}></Col>

@@ -14,6 +14,7 @@ import { showToast } from "@cred/neopop-web/lib/components";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/auth/authSlice";
 import Loader from "../../components/LoaderComponent/LoaderComponent";
+import AnimCursorComponent from "../../components/AnimCursorComponent/AnimCursorComponent";
 
 import "./LoginPage.css";
 
@@ -125,7 +126,7 @@ const LoginPage = () => {
         <div className="logo"></div>
         <section className="form_section">
           <Loader hidden={isLoading} />
-
+          <AnimCursorComponent />
           <ElevatedCard
             className="form"
             backgroundColor="#fff0e5"

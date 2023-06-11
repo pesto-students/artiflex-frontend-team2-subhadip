@@ -17,6 +17,7 @@ import { showToast } from "@cred/neopop-web/lib/components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/authSlice";
+import AnimCursorComponent from "../../components/AnimCursorComponent/AnimCursorComponent";
 
 const ContentWrapper = styled.div`
   padding: 30px;
@@ -120,7 +121,7 @@ const RegisterPage = () => {
       <div className="form_section_outer_div">
         <div className="logo"></div>
         <section className="form_section">
-          {/* <div> */}
+          <AnimCursorComponent />
           <ElevatedCard
             className="form"
             backgroundColor="#fff0e5"

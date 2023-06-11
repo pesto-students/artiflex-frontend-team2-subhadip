@@ -27,7 +27,14 @@ const createPost = async (
 };
 
 const createPostForImage = async (
-  apiArgs = { title: "", post_url: "", post_type: "" }
+  apiArgs = {
+    title: "",
+    description: "",
+    post_url: "",
+    post_type: "",
+    // for_sell: "",
+    // post_price: "",
+  }
 ) => {
   const accessToken = localStorage.getItem("accessToken");
   const headers = { Authorization: `Bearer ${accessToken}` };
@@ -47,14 +54,45 @@ const getAllPosts = async (apiArgs = {}) => {
   });
 
   if (status >= 200 && status < 300) {
-    console.log("API request was successful!");
-    console.log(data); // This will log the data returned from the API to the console.
+    console.log("API request getAllPost was successfull!");
+    // console.log(data); // This will log the data returned from the API to the console.
   } else {
-    console.error("API request failed!");
-    console.error(data); // This will log the error message returned from the API to the console.
+    console.error("API request getAllPost failed!");
+    // console.error(data); // This will log the error message returned from the API to the console.
   }
 
   return data;
 };
 
-export { login, register, createPost, createPostForImage, getAllPosts };
+const getOnePosts = async (apiArgs = { id: "" }) => {
+  const { id } = apiArgs;
+  const accessToken = localStorage.getItem("accessToken");
+  const headers = { Authorization: `Bearer ${accessToken}` };
+  try {
+    const { data, status } = await axios.get(`${SERVER_URL}/post/post/${id}`, {
+      headers: headers,
+    });
+
+    if (status >= 200 && status < 300) {
+      console.log("API request getOnePosts was successfull!");
+      // console.log(data); // This will log the data returned from the API to the console.
+    } else {
+      console.error("API request getOnePosts failed!");
+      // console.error(data); // This will log the error message returned from the API to the console.
+    }
+
+    return data;
+  } catch (error) {
+    console.error("API request failed!", error);
+    throw error;
+  }
+};
+
+export {
+  login,
+  register,
+  createPost,
+  createPostForImage,
+  getAllPosts,
+  getOnePosts,
+};
