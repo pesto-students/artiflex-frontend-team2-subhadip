@@ -1,0 +1,52 @@
+.register_page {
+  display: flex;
+}
+
+.register_page > .image_section {
+  width: 50%;
+  height: 100vh;
+}
+
+.image_section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("https://images.unsplash.com/photo-1595364397663-fca4f075d796?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80")
+    no-repeat;
+  /* background-size:contain; */
+  /* border: 1px solid; */
+}
+
+.form_section_outer_div {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.logo {
+  width: 100%;
+  height: 10vh;
+  background: url("../../assets/artiflex.png") no-repeat;
+  background-color: #111827;
+}
+
+.form_section {
+  background-color: #111827;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form_section {
+  width: 100%;
+  height: 90vh;
+}
+
+.input_form_fields {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
