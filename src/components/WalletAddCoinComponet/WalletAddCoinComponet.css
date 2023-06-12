@@ -1,0 +1,10 @@
+.add-coin-header {
+    font-size: 1.5rem;
+    color: #fff;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.add-coin-header .close-icon:hover {
+    cursor: pointer;
+}
