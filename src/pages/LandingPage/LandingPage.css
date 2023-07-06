@@ -1,0 +1,212 @@
+header {
+  height: 5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  /* margin-inline: 1%; */
+  flex-wrap: wrap;
+}
+
+.logo {
+  width: 115px;
+  height: 70px;
+  background: url("../../assets/artiflex.png") no-repeat;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+button:hover {
+  background-color: black;
+  color: black;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 50%;
+  gap: 20px;
+  width: 100%;
+}
+
+.last {
+  margin-top: auto;
+}
+
+.label {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.outer-div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* height: 700px; */
+}
+
+.banner-image {
+  margin: auto;
+  height: 520px;
+}
+
+.artiflex {
+  height: 105px;
+  margin-top: 10%;
+  margin: auto;
+  width: 100%;
+}
+
+.main-buttons {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.flashcard {
+  perspective: 800px;
+  box-shadow: none;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s;
+}
+
+.flashcard:hover {
+  transform: perspective(800px) rotateY(-20deg) translateZ(10px);
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px,
+    rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.ellipse {
+  position: absolute;
+  margin-top: 65px;
+}
+
+.flashcard {
+  position: relative;
+  margin-left: 38px;
+  margin-top: 77px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: #47126b;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .footer-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.social-media {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  width: 60%;
+}
+
+.one {
+  margin-top: 170px !important;
+}
+
+.two {
+  margin-top: 20px !important;
+  height: 2px !important;
+}
+
+.three {
+  margin-top: 20px !important;
+  height: 4px !important;
+}
+
+.four {
+  margin-top: 20px !important;
+  height: 6px !important;
+}
+.five {
+  margin-top: 20px !important;
+  height: 8px !important;
+}
+.six {
+  margin-top: 20px !important;
+  height: 10px !important;
+}
+.seven {
+  margin-top: 20px !important;
+  height: 12px !important;
+}
+
+.eigth {
+  margin-top: 20px !important;
+  height: 14px !important;
+}
+.nine {
+  margin-top: 20px !important;
+  height: 16px !important;
+}
+.ten {
+  margin-top: 20px !important;
+  height: 18px !important;
+}
+.eleven {
+  margin-top: 18px !important;
+  height: 20px !important;
+}
+.twleve {
+  margin-top: 16px !important;
+  height: 22px !important;
+}
+
+.thirteen {
+  margin-top: 14px !important;
+  height: 22px !important;
+}
+
+.fourteen {
+  margin-top: 12px !important;
+  height: 22px !important;
+}
+.fifteen {
+  margin-top: 10px !important;
+  height: 22px !important;
+}
+.sixteen {
+  margin-top: 8px !important;
+  height: 22px !important;
+}
+.seventeen {
+  margin-top: 6px !important;
+  height: 22px !important;
+}
+.eightteen {
+  margin-top: 4px !important;
+  height: 22px !important;
+}
+
+.nineteen {
+  margin-top: 2px !important;
+  height: 22px !important;
+}
+.twenty {
+  margin-top: 1px !important;
+  height: 150px !important;
+}
+ */
+
+.features {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
