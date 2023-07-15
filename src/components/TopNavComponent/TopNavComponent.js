@@ -48,7 +48,13 @@ const TopNavComponent = () => {
             style={{ fill: "white", fontSize: "25px", margin: "auto" }}
           />
         </Col>
-        <Col xs={1.5} md={1.5} className="profile">
+
+        <Col
+          xs={1.5}
+          md={1.5}
+          className="profile"
+          onClick={() => navigate("/profile", { replace: true })}
+        >
           <RiUserLine
             style={{ fill: "white", fontSize: "25px", margin: "auto" }}
           />

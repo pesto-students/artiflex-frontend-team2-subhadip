@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../../redux/auth/authSlice";
 import Loader from "../../components/LoaderComponent/LoaderComponent";
 import AnimCursorComponent from "../../components/AnimCursorComponent/AnimCursorComponent";
+import PasswordChecklist from "react-password-checklist";
 
 import "./LoginPage.css";
 
@@ -164,6 +165,18 @@ const LoginPage = () => {
                 onChange={handleChange}
                 name="password"
               />
+              {/* <PasswordChecklist
+                rules={[
+                  "minLength",
+                  "specialChar",
+                  "number",
+                  "capital",
+                  "lowercase",
+                ]}
+                minLength={8}
+                value={loginFormData.password}
+                // valueAgain={passwordAgain}
+              /> */}
               <ActionWrapper>
                 <PrimaryButtonComponent
                   text="Login"

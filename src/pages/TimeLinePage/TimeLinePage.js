@@ -13,6 +13,7 @@ import AnimCursorComponent from "../../components/AnimCursorComponent/AnimCursor
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAllPosts } from "../../redux/post/postSlice";
+import { useSelector } from "react-redux";
 
 function TimeLinePage() {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ function TimeLinePage() {
   const stopLoading = () => {
     setIsLoading(false);
   };
+
+  const authState = useSelector((state) => state.auth.data);
+
+  console.log(authState);
 
   const usersAllPosts = useCallback(
     async (payload = {}) => dispatch(getAllPosts(payload)).unwrap(),

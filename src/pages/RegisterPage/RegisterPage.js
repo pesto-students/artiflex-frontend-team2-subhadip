@@ -1,9 +1,5 @@
 import { Typography, HorizontalDivider } from "@cred/neopop-web/lib/components";
-import {
-  FontVariant,
-  colorPalette,
-  fontNameSpaces,
-} from "@cred/neopop-web/lib/primitives";
+import { colorPalette, fontNameSpaces } from "@cred/neopop-web/lib/primitives";
 import styled from "styled-components";
 import { ElevatedCard, Button } from "@cred/neopop-web/lib/components";
 
@@ -18,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/authSlice";
 import AnimCursorComponent from "../../components/AnimCursorComponent/AnimCursorComponent";
+import PasswordChecklist from "react-password-checklist";
 
 const ContentWrapper = styled.div`
   padding: 30px;
@@ -210,6 +207,17 @@ const RegisterPage = () => {
                 // onChange={(e) => setPassword(e.target.value)}
                 onChange={handleChange}
                 name="password"
+              />
+              <PasswordChecklist
+                rules={[
+                  "minLength",
+                  "specialChar",
+                  "number",
+                  "capital",
+                  "lowercase",
+                ]}
+                minLength={8}
+                value={registerFormdata.password}
               />
               <ActionWrapper>
                 <PrimaryButtonComponent

@@ -7,6 +7,7 @@ import SecondaryButtonComp from "../SecondaryButton/SecondaryButton";
 // import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 // import { storage } from "../../firebase";
+import { useSelector } from "react-redux";
 
 // import { getAllPosts } from "../../redux/post/postSlice";
 
@@ -38,6 +39,7 @@ const ContentWrapper = styled.div`
 const PostsListComponent = ({ allPostsArr }) => {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
+  const authState = useSelector((state) => state.auth.data.user._id);
 
   return (
     <>
@@ -144,7 +146,13 @@ const PostsListComponent = ({ allPostsArr }) => {
                             navigate(`/post/${item._id}`, { replace: true })
                           }
                         />
-                        <PrimaryButtonComponent size="medium" text="Buy Now" />
+
+                        {item.user_id._id != authState && (
+                          <PrimaryButtonComponent
+                            size="medium"
+                            text="Buy Now"
+                          />
+                        )}
                       </div>
                     ) : (
                       ""
