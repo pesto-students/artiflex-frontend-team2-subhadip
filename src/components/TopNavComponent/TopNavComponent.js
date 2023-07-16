@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-grid-system";
 import "./TopNavComponent.css";
 import { Typography } from "@cred/neopop-web/lib/components";
 import { useNavigate } from "react-router-dom";
+import { Button } from "@cred/neopop-web/lib/components";
 
 import SearchInputField from "../../components/SearchBarComponent/SearchBarComponent";
 import {
@@ -15,6 +16,10 @@ import {
 
 const TopNavComponent = () => {
   const navigate = useNavigate();
+  const navigateToLogin = () => {
+    localStorage.clear();
+    navigate("/", { replace: true });
+  };
 
   return (
     <Container fluid className="topnav_outer_div">
@@ -28,11 +33,6 @@ const TopNavComponent = () => {
         <Col xs={3} md={5.5} className="search_bar">
           <SearchInputField />
         </Col>
-        <Col xs={0.5} md={0.5} className="chat">
-          <RiQuestionAnswerLine
-            style={{ fill: "white", fontSize: "25px", margin: "auto" }}
-          />
-        </Col>
         <Col xs={0.5} md={0.5} className="notification">
           <RiNotification4Line
             style={{ fill: "white", fontSize: "25px", margin: "auto" }}
@@ -43,10 +43,19 @@ const TopNavComponent = () => {
             style={{ fill: "white", fontSize: "25px", margin: "auto" }}
           />
         </Col>
-        <Col xs={0.5} md={0.5} className="kart">
-          <RiShoppingBagLine
-            style={{ fill: "white", fontSize: "25px", margin: "auto" }}
-          />
+        <Col xs={1} md={1} className="kart">
+          <Button
+            variant="primary"
+            showArrow
+            elevationDirection="top-right"
+            colorConfig={{
+              backgroundColor: "#FFFFFF40",
+              borderColor: "white",
+            }}
+            onClick={navigateToLogin}
+          >
+            Log out
+          </Button>
         </Col>
 
         <Col

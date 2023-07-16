@@ -19,6 +19,11 @@ function TimeLinePage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const authState = useSelector((state) => state.auth.data);
+
+  localStorage.setItem("token", authState.token);
+  var token = localStorage.getItem("token");
+
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [allPosts, setAllPosts] = React.useState([]);
@@ -31,9 +36,9 @@ function TimeLinePage() {
     setIsLoading(false);
   };
 
-  const authState = useSelector((state) => state.auth.data);
+  // const authState = useSelector((state) => state.auth.data);
 
-  console.log(authState);
+  // console.log(authState);
 
   const usersAllPosts = useCallback(
     async (payload = {}) => dispatch(getAllPosts(payload)).unwrap(),
@@ -53,7 +58,12 @@ function TimeLinePage() {
   };
 
   React.useEffect(() => {
-    loadAllPosts();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/", { replace: true });
+    } else {
+      loadAllPosts();
+    }
   }, []);
 
   return (
