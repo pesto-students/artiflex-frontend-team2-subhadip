@@ -11,6 +11,7 @@ import {
 } from "@cred/neopop-web/lib/components";
 import { Container, Col } from "react-grid-system";
 import { RiPencilLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 import {
   mainColors,
@@ -27,6 +28,8 @@ const ContentWrapper = styled.div`
 `;
 
 const ProfileInfoComponent = () => {
+  const authState = useSelector((state) => state.auth.data);
+
   return (
     <div className="profile_outer_div">
       <ElevatedCard
@@ -44,7 +47,7 @@ const ProfileInfoComponent = () => {
               </div>
               <Col className="profile-details">
                 <Typography {...FontVariant.CirkaHeadingBold20} color="white">
-                  Zaphod Beeblebrox
+                  {authState.user.first_name}
                 </Typography>
                 <Typography
                   {...FontVariant.BodyRegular16}

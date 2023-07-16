@@ -32,8 +32,8 @@ const createPostForImage = async (
     description: "",
     post_url: "",
     post_type: "",
-    // for_sell: "",
-    // post_price: "",
+    for_sell: "",
+    post_price: "",
   }
 ) => {
   const accessToken = localStorage.getItem("accessToken");

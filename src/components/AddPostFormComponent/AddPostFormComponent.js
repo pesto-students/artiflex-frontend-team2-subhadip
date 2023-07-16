@@ -121,8 +121,15 @@ const AddPostFormComponent = () => {
   }
 
   const userPost = useCallback(
-    async (payload = { title: "", description: "", post_type: "" }) =>
-      dispatch(createPost(payload)).unwrap(),
+    async (
+      payload = {
+        title: "",
+        description: "",
+        post_type: "",
+        // for_sell: "",
+        // post_price: "",
+      }
+    ) => dispatch(createPost(payload)).unwrap(),
     []
   );
 
@@ -133,8 +140,8 @@ const AddPostFormComponent = () => {
         description: "",
         post_url: "",
         post_type: "",
-        // for_sell: "",
-        // post_price: "",
+        for_sell: "",
+        post_price: "",
       }
     ) => dispatch(createPostForImage(payload)).unwrap(),
     []
@@ -178,8 +185,8 @@ const AddPostFormComponent = () => {
           post_url: downloadURL,
           post_type: type,
           tags: "sup",
-          // for_sell: PostFormDataImage.imagePostPrice,
-          // post_price: PostFormDataImage.imageSellPrice,
+          for_sell: PostFormDataImage.imagePostPrice,
+          post_price: PostFormDataImage.imageSellPrice,
         };
         const res = await userPostImage(payload);
         stopLoading();

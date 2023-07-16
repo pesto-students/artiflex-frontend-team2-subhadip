@@ -4,6 +4,7 @@ import "./TopNavComponent.css";
 import { Typography } from "@cred/neopop-web/lib/components";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@cred/neopop-web/lib/components";
+import { useSelector } from "react-redux";
 
 import SearchInputField from "../../components/SearchBarComponent/SearchBarComponent";
 import {
@@ -15,6 +16,8 @@ import {
 } from "react-icons/ri";
 
 const TopNavComponent = () => {
+  const authState = useSelector((state) => state.auth.data);
+
   const navigate = useNavigate();
   const navigateToLogin = () => {
     localStorage.clear();
@@ -73,7 +76,7 @@ const TopNavComponent = () => {
             fontWeight={500}
             // className="title_name"
           >
-            Exo Sapien
+            {authState.user.first_name}
           </Typography>
         </Col>
       </Row>
